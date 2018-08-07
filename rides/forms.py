@@ -24,7 +24,7 @@ class ReoccuringBooking(forms.ModelForm):
 
     class Meta:
         model = models.Reoccuring
-        fields = ['name', 'phone','birthdate','patient_med_number','number_of_passengers','start_date','end_date','pickup_address_one','return_address_one','pickup_time_one','return_time_one','weekday_one', 'pickup_address_two','return_address_two','pickup_time_two','return_time_two','weekday_two', ]
+        fields = ['name', 'phone','birthdate','patient_med_number','number_of_passengers','start_date','end_date','pickup_address_one','destination_address_one','pickup_time_one','return_time_one','weekday_one', 'pickup_address_two','destination_address_two','pickup_time_two','return_time_two','weekday_two', ]
         widgets = {
         'name' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Patient Name'}),
         'phone' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Patient Phone Number'}),
@@ -35,13 +35,13 @@ class ReoccuringBooking(forms.ModelForm):
         'end_date' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'End Date'}),
 
         'pickup_address_one' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Pickup Address One'}),
-        'return_address_one' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Return Address One'}),
+        'destination_address_one' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Destination Address One'}),
         'pickup_time_one' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Pickup Time One'}),
         'return_time_one' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Return Time One'}),
         'weekday_one' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Type first 3 letters of the weekday'}),
 
         'pickup_address_two' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Pickup Address Two'}),
-        'return_address_two' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Return Address Two'}),
+        'destination_address_two' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Destination Address Two'}),
         'pickup_time_two' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Pickup Time Two'}),
         'return_time_two' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Return Time Two'}),
         'weekday_two' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Type first 3 letters of weekday two'}),

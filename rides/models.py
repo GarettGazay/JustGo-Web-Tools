@@ -30,16 +30,17 @@ class Reoccuring(models.Model):
     end_date = models.CharField(max_length=12)
 
     pickup_address_one = models.CharField(max_length=30, default="")
-    return_address_one = models.CharField(max_length=30, default="")
+    destination_address_one = models.CharField(max_length=30, default="")
     pickup_time_one = models.CharField(max_length=12,default="")
     return_time_one =  models.CharField(max_length=12,default="")
     weekday_one =  models.CharField(max_length=12,default="")
 
     pickup_address_two = models.CharField(max_length=30, default="")
-    return_address_two = models.CharField(max_length=30, default="")
+    destination_address_two = models.CharField(max_length=30, default="")
     pickup_time_two = models.CharField(max_length=12,default="")
     return_time_two =  models.CharField(max_length=12,default="")
     weekday_two =  models.CharField(max_length=12,default="")
+
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
 

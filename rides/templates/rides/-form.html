@@ -1,0 +1,150 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+      <div class="container form-group">
+
+      <h3>JustGo Booking Agent</h3>
+      <p>Enter the patient's information below</p>
+
+      <form class="" method="post">
+
+        <input class="form-control" type="text" name="customer_name" value="" placeholder="Name"><br />
+        <input class="form-control" type="text" name="customer_phone" value="" placeholder="Phone"><br />
+        <input class="form-control" type="text" name="start_address" value="" placeholder="Start Address"><br />
+        <input class="form-control" type="text" name="end_address" value="" placeholder="End Address"><br />
+        <input class="form-control" type="text" name="dob" value="" placeholder="Date of Birth | SCFHP Only"><br />
+        <input class="form-control" type="text" name="pat#" value="" placeholder="Patient Med Number | SCFHP Only"><br />
+
+        <h5 class="gray">Number of passengers</h5>
+        <select class="form-control">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+            <option value="5">Five</option>
+        </select><br>
+
+        <div class="">
+          <div class="">
+              <label class="gray" for="">One-Off Rides</label><br>
+          </div>
+
+          <input class="datepicker1" name="datepicker1[]" id="datepicker1" type="text" placeholder="Appointment date" /><br>
+          <p class="gray">Times <span class="red">Times must be in 24 hour format: HH:MM</span><br>
+          <input class="timepicker" name="starttime[]" id="startpicker" type="text" placeholder="Pickup Time" />
+          <input class="timepicker" name="returntime[]" id="returnpicker" type="text" placeholder="Return Time" />
+            <p class="gray">Round Trip? <input type="checkbox" name="return-check" value="Round Trip" placeholder="Round Trip?"></p><br>
+
+
+        </div>
+<div style="background-color: #f2f2f2;">
+
+
+        <label class="gray" for="">Reoccuring Weekly Rides Below</label>
+        <span class="red">  |  This section is for weekly reocurring rides over the course of the specified month.</span>
+        <select class="form-control">
+            <option value="jan">January 2018</option>
+            <option value="feb">February 2018</option>
+            <option value="mar">March 2018</option>
+            <option value="apr">April 2018</option>
+            <option value="may">May 2018</option>
+            <option value="june">June 2018</option>
+            <option value="july">July 2018</option>
+            <option value="august">August 2018</option>
+            <option value="sep">September 2018</option>
+            <option value="oct">October 2018</option>
+            <option value="nov">November 2018</option>
+            <option value="dec">December 2018</option>
+        </select><br>
+
+  <div id="timesContainer">
+  <!-- Reoccur Date Block -->
+  <form method="post" action="booking_agent.php">
+
+      <p class="gray">Choose a start date for the month specified above, then any reocurring weekdays for the specified itinerary above.</p>
+      <input class="datepicker" name="datepicker[]" id="datepicker" type="text" placeholder="Start date" />
+      <!-- <input class="datepicker1" name="datepicker1[]" id="datepicker1" type="text" placeholder="End date" /><br><br> -->
+
+      <p class="gray"> Times and Days <span class="red">Times must be in 24 hour format: HH:MM</span></p>
+    <p><span>
+
+      <input class="timepicker" name="starttime[]" id="startpicker" type="text" placeholder="Pickup Time" />
+      <input class="timepicker" name="returntime[]" id="returnpicker" type="text" placeholder="Return Time" />
+
+      <select id="daymenu">
+          <option name="mon[]" value="Mondays">Mondays</option>
+          <option name="tue[]" value="Tuesdays">Tuesdays</option>
+          <option name="wed[]" value="Wednesdays">Wednesdays</option>
+          <option name="thur[]" value="Thursdays">Thursdays</option>
+          <option name="fri[]" value="Fridays">Fridays</option>
+          <option name="sat[]" value="Saturdays">Saturdays</option>
+          <option name="sun[]" value="Sundays">Sundays</option>
+      </select>
+         <a href="#" id='add'>Add More</a>
+      </span></p>
+
+     </form>
+<!-- <div class="block_1 hline-bottom"></div><br> -->
+<!-- End Reoccur Date Block -->
+</div>
+
+
+
+</div>
+
+    <script type="text/javascript">
+
+           $(document).ready(function() {
+
+             // Initial time picker for page loaded fields
+             $('.timepicker').timepicker({
+                    timeFormat: 'HH:mm',
+                    interval:15,
+                  });
+
+              // Time Picker for additional children
+              $('#timesContainer').on('click',function () {
+                $('.timepicker').timepicker({
+                       timeFormat: 'HH:mm',
+                       interval:15,
+                     });
+              });
+           });
+         </script>
+
+         <script type="text/javascript">
+           $(document).ready(function(e){
+
+             var html = '<div><input class="timepicker" name="startpicker[]" id="childstartpicker" type="text" placeholder="Pickup Time" /> <input class="timepicker" name="returnpicker[]" id="returnpicker" type="text" placeholder="Return Time" /> <select id="daymenu"><option name="mon[]" value="Mondays">Mondays</option><option name="tue[]" value="Tuesdays">Tuesdays</option><option name="wed[]" value="Wednesdays">Wednesdays</option><option name="thur[]" value="Thursdays">Thursdays</option><option name="fri[]" value="Fridays">Fridays</option><option name="sat[]" value="Saturdays">Saturdays</option><option name="sun[]" value="Sundays">Sundays</option></select><a href="#" id="remove">Remove</a> </span></p></form></div>';
+             var maxRows = 6;
+             var x = 1;
+
+             //Add
+             $('#add').click(function(e){
+               if( x <= maxRows){
+                 $('#timesContainer').append(html);
+                 x++;
+                 return false;
+               }
+             });
+             //Remove
+             $('#timesContainer').on('click','#remove',function(e){
+               $(this).parent('div').remove();
+               x--;
+               return false;
+             });
+           });
+
+         </script>
+
+         <script>
+            $( function() {
+              $( ".datepicker").datepicker({ dateFormat: 'yy-mm-dd'});
+            });
+            $( function() {
+              $( ".datepicker1").datepicker({ dateFormat: 'yy-mm-dd'});
+            });
+         </script>
+
+{% endblock %}

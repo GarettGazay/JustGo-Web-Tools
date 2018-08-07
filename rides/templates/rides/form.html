@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="basic-data">
+    <h4 class="booking-title"> JustGo Booking Agent</h4>
+    <form class="site-form" action="{% url 'rides:book' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form }}
+      <input class="create-booking btn btn-success" type="submit" name="" value="Create One Off Ride">
+    </form>
+</div>
+
+
+<script type="text/javascript">
+  $('#id_number_of_passengers').after('<h4 class="one-off-label">One off rides</h4>');
+</script>
+
+
+<script>
+// <!-- Appointment Date - One off -->
+$( function() {
+     $( "#id_appointment_date").datepicker({ dateFormat: 'yy-mm-dd'});
+   });
+// <!-- Appointment Time - One Off -->
+ $( function(){
+   $('#id_pickup_time,#id_return_time').timepicker({
+       timeFormat: 'HH:mm',
+       interval:15,
+       });
+     });
+</script>
+
+
+
+<!-- <script>
+  $(function() {
+    $("#segement1,#segement2,#segement3").hide()
+  });
+</script>
+
+<div id="segement1"></div>
+<div id="segement2"></div>
+<div id="segement3"></div> -->
+
+
+
+
+
+{% endblock %}

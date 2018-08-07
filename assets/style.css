@@ -1,0 +1,148 @@
+* {
+  background-color: #fff;
+  font-family: 'Lato', sans-serif;
+
+}
+
+input[type="text"] {
+    margin: 5px;
+    text-align: center;
+}
+
+#add_a_date {
+  margin-bottom: 15px;
+}
+
+
+
+.basic-data {
+  color: #adadad;
+  text-align: center;
+  padding-bottom: 20px;
+
+}
+
+.basic-data .booking-title {
+  padding-bottom: 50px;
+  margin: 50 auto;
+}
+
+.red{
+  font-size: 10px;
+  color: red;
+}
+
+
+.wrapper{
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+div.wrapper h1{
+  text-align: center;
+  margin: 100px auto;
+  font-size: 2.4m;
+
+}
+
+.title-image{
+ display: block;
+ margin: 0 auto;
+ text-align: center;
+}
+
+header{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding : 20px 0;
+}
+
+nav{
+  justify-self: end;
+  text-align: right;
+}
+
+nav li {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.helptext, .helptext ul{
+  margin: 0 auto 20px;
+  color#bbb;
+  font-size 0.9em;
+  display: block;
+
+}
+
+.errorlist li {
+  padding: 10px;
+  list-style-type: none;
+  border: 1px solid black;
+  color : red;
+  margin: 10px 0;
+
+}
+
+.site-form{
+  display: grid;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 420px;
+  color: #b68bd4;
+}
+
+.site-form ul{
+   list-style-type: none;
+}
+
+.create-booking {
+  margin-top: 25px;
+  color: #adadad;
+}
+
+h4 {
+  color: #adadad;
+}
+
+.register-title {
+color: skyblue;
+text-align: center;
+margin-bottom: 50px;
+font-family: 'Lato', sans-serif;
+}
+
+.login-button {
+  margin-top: 25px;
+}
+
+
+.one-off-label {
+  color: #adadad;
+  margin: 50px;
+}
+
+::-webkit-input-placeholder {
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;
+}
+
+:-ms-input-placeholder {
+   text-align: center;
+}
+
+#multi-label {
+  color: #adadad;
+  margin: 50px;
+}
+
+#line-break {
+  margin: 20px;
+}

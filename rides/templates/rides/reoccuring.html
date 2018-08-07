@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="basic-data">
+    <h4 class="booking-title"> JustGo Booking Agent</h4>
+    <form class="site-form" action="{% url 'rides:multi' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form }}
+      <input id= "final-submission" class="create-booking btn btn-success" type="submit" name="" value="Create Multi Booking">
+    </form>
+</div>
+
+<button class="btn btn-primary" id="add_a_date" type="button" name="button">Add a Date</button>
+<span id="line-break"></span>
+
+<script type="text/javascript">
+  $('#id_end_date').after('<h5 id="multi-label">Schedule Mulitple Dates</h5>');
+  $( "#add_a_date, #saved" ).insertAfter( $( "#multi-label" ) );
+</script>
+
+<script>
+$( function() {
+     $( "#id_start_date,#id_end_date").datepicker({ dateFormat: 'yy-mm-dd'});
+   });
+ $( function(){
+   $('#id_pickup_time_one,#id_return_time_one').timepicker({
+       timeFormat: 'HH:mm',
+       interval:15,
+       });
+     });
+</script>
+
+<script type="text/javascript">
+$(function() {
+  $("label").hide();
+  $("#id_pickup_address_one, #id_return_address_one, #id_pickup_time_one, #id_return_time_one, #id_return_address_one,#id_weekday_one").hide();
+  $("#id_pickup_address_two, #id_return_address_two, #id_pickup_time_two, #id_return_time_two, #id_return_address_two,#id_weekday_two").hide();
+});
+</script>
+
+<script type="text/javascript">
+  $(function(){
+    var count = 0;
+    $('#add_a_date').click(function () {
+      count += 1;
+      console.log(count)
+      if(count == 1)
+         return $("#id_pickup_address_one, #id_return_address_one, #id_pickup_time_one, #id_return_time_one, #id_return_address_one,#id_weekday_one").show();
+      if(count == 2)
+         $('#line-break').insertAfter('#id_weekday_one')
+         return $("#id_pickup_address_two, #id_return_address_two, #id_pickup_time_two, #id_return_time_two, #id_return_address_two,#id_weekday_two").show();
+    });
+  });
+
+</script>
+
+<script type="text/javascript">
+  $(function () {
+    $('#final-submission').click(function () {
+      return confirm('Are you sure you want to submit the form?');
+    });
+  });
+</script>
+
+
+
+
+
+
+
+{% endblock %}

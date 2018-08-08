@@ -25,7 +25,7 @@ def login_view(request):
             if'next' in request.POST:
                 return redirect(request.POST.get("next"))
             else:
-                return redirect('/rides/book')
+                return redirect('/accounts/choose')
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html',{'form' : form })
@@ -34,3 +34,6 @@ def logout_view(request):
     if request.method == 'POST':
         logout(request)
         return redirect('accounts:login')
+
+def chooser(request):
+    return render(request, 'accounts/choose.html')

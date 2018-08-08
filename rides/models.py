@@ -14,6 +14,7 @@ class FormBasic(models.Model):
     return_time = models.CharField(max_length=10)
     pickup_address = models.CharField(max_length=30)
     return_address = models.CharField(max_length=30)
+    time_stamp = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
     def __str__(self):
@@ -41,6 +42,7 @@ class Reoccuring(models.Model):
     return_time_two =  models.CharField(max_length=12,default="")
     weekday_two =  models.CharField(max_length=12,default="")
 
+    time_stamp = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
 

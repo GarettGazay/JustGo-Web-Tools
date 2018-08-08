@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="text-align: center; display: block; color: gray;">
+  <h3>What kind of booking is this?</h3>
+  <a href="{% url 'rides:book' %}" class="btn btn-default">One-Off</a>
+  <a href="{% url 'rides:multi' %}" class="btn btn-default">Reocurring</a>
+</div>
+
+
+{% endblock %}

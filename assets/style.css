@@ -146,3 +146,24 @@ font-family: 'Lato', sans-serif;
 #line-break {
   margin: 20px;
 }
+
+
+.one-off-click {
+  padding: 20px;
+  display: block;
+  margin: 0 auto;
+  margin right: 5px;
+}
+
+.multi-click {
+  .one-off-click {
+  padding: 20px;
+  display: block;
+  margin: 0 auto;
+  margin right: 5px;
+}
+
+.what-booking {
+  display: block;
+  text-align: center;
+}

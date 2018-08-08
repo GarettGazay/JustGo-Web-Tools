@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rides',
     'import_export',
     'jquery',
+    'data_format',
 
 
 

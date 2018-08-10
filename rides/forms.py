@@ -6,7 +6,7 @@ class CreateBooking(forms.ModelForm):
 
     class Meta:
         model = models.FormBasic
-        fields = ['name', 'phone','birthdate','patient_med_number','number_of_passengers','appointment_date','pickup_time','return_time', 'pickup_address', 'return_address']
+        fields = ['name', 'phone','birthdate','patient_med_number','number_of_passengers','appointment_date','pickup_time','return_time', 'pickup_address', 'destination_address']
         widgets = {
         'name' : forms.TextInput(attrs={'class' : 'form-control'}),
         'phone' : forms.TextInput(attrs={'class' : 'form-control'}),
@@ -17,7 +17,7 @@ class CreateBooking(forms.ModelForm):
         'pickup_time' : forms.TextInput(attrs={'class' : 'form-control'}),
         'return_time' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Leave blank if one way'}),
         'pickup_address' : forms.TextInput(attrs={'class' : 'form-control'}),
-        'return_address' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'destination_address' : forms.TextInput(attrs={'class' : 'form-control'}),
         }
 
 class ReoccuringBooking(forms.ModelForm):

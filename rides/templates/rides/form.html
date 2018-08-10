@@ -6,10 +6,9 @@
     <form class="site-form" action="{% url 'rides:book' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
-      <input class="create-booking btn btn-success" type="submit" name="" value="Create One Off Ride">
+      <input class="create-booking btn btn-success" id='submit-button' type="submit" name="" value="Create One Off Ride">
     </form>
 </div>
-
 
 <script type="text/javascript">
   $('#id_number_of_passengers').after('<h4 class="one-off-label">One off rides</h4>');
@@ -30,20 +29,7 @@ $( function() {
      });
 </script>
 
-
-
-<!-- <script>
-  $(function() {
-    $("#segement1,#segement2,#segement3").hide()
-  });
-</script>
-
-<div id="segement1"></div>
-<div id="segement2"></div>
-<div id="segement3"></div> -->
-
-
-
+<!-- DATA FORMATTER-->
 
 
 {% endblock %}

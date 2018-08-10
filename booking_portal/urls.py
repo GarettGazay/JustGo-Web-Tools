@@ -23,7 +23,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('rides/', include('rides.urls')),
     path('', account_views.login_view, name='home'),
-    path('data_format/', include('data_format.urls'))
+
 
 ]
 

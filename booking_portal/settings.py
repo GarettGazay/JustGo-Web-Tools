@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rides',
     'import_export',
     'jquery',
-    'data_format',
+    'django_extensions'
+
 
 
 
@@ -113,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'US/Pacific'
 
 USE_I18N = True
 

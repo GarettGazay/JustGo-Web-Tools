@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 # Create your models here.
 
@@ -13,8 +15,8 @@ class FormBasic(models.Model):
     pickup_time = models.CharField(max_length=10)
     return_time = models.CharField(max_length=10)
     pickup_address = models.CharField(max_length=30)
-    return_address = models.CharField(max_length=30)
-    time_stamp = models.DateTimeField(editable=True, auto_now_add=True)
+    destination_address = models.CharField(max_length=30)
+    time_stamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
     def __str__(self):

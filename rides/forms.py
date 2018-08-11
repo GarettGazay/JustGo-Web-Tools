@@ -6,14 +6,18 @@ class CreateBooking(forms.ModelForm):
 
     class Meta:
         model = models.FormBasic
-        fields = ['name', 'phone','birthdate','patient_med_number','number_of_passengers','appointment_date','pickup_time','return_time', 'pickup_address', 'destination_address']
+        fields = ['account_number','call_number','service_type','patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','appointment_date', 'round_trip','pickup_time','return_time', 'pickup_address', 'destination_address']
         widgets = {
-        'name' : forms.TextInput(attrs={'class' : 'form-control'}),
-        'phone' : forms.TextInput(attrs={'class' : 'form-control'}),
-        'birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'This field SCFHP only'}),
+        'account_number' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'call_number'  : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP only'}),
+        'service_type'  : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP only'}),
+        'patient_name' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'patient_phone' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'This field SCFHP only'}),
         'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'This field SCFHP only'}),
         'number_of_passengers' : forms.NumberInput(attrs={'class' : 'form-control'}),
         'appointment_date' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'round_trip' : forms.CheckboxInput(attrs={'class' : 'form-check-input checkbox-inline'}),
         'pickup_time' : forms.TextInput(attrs={'class' : 'form-control'}),
         'return_time' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Leave blank if one way'}),
         'pickup_address' : forms.TextInput(attrs={'class' : 'form-control'}),
@@ -24,11 +28,11 @@ class ReoccuringBooking(forms.ModelForm):
 
     class Meta:
         model = models.Reoccuring
-        fields = ['name', 'phone','birthdate','patient_med_number','number_of_passengers','start_date','end_date','pickup_address_one','destination_address_one','pickup_time_one','return_time_one','weekday_one', 'pickup_address_two','destination_address_two','pickup_time_two','return_time_two','weekday_two', ]
+        fields = ['patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','start_date','end_date','pickup_address_one','destination_address_one','pickup_time_one','return_time_one','weekday_one', 'pickup_address_two','destination_address_two','pickup_time_two','return_time_two','weekday_two', ]
         widgets = {
-        'name' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Patient Name'}),
-        'phone' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Patient Phone Number'}),
-        'birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'Patient Birthdate'}),
+        'patient_name' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Patient Name'}),
+        'patient_phone' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Patient Phone Number'}),
+        'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'Patient Birthdate'}),
         'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Patient Medical Number'}),
         'number_of_passengers' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Number of Passengers - Use digits'}),
         'start_date' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Start Date'}),

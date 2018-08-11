@@ -8,10 +8,12 @@ def signup_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            print('form is valid')
+            print(formset.errors)
             # log user in
             user = form.save()
             login(request, user)
-            return redirect('/rides/book')
+            return redirect('/accounts/choose')
     form = UserCreationForm()
     return render(request, 'accounts/signup.html',{'form' : form})
 

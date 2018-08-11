@@ -6,16 +6,20 @@ from django.utils import timezone
 # Create your models here.
 
 class FormBasic(models.Model):
-    name = models.CharField(max_length=20)
-    phone = models.CharField(max_length=10)
-    birthdate = models.CharField(max_length=8)
+    patient_name = models.CharField(max_length=20)
+    patient_phone = models.CharField(max_length=10)
+    patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30)
     number_of_passengers = models.IntegerField(default=1)
     appointment_date = models.CharField(max_length=15)
+    round_trip = models.BooleanField(default=False)
     pickup_time = models.CharField(max_length=10)
     return_time = models.CharField(max_length=10)
-    pickup_address = models.CharField(max_length=30)
-    destination_address = models.CharField(max_length=30)
+    pickup_address = models.CharField(max_length=80)
+    destination_address = models.CharField(max_length=80)
+    account_number = models.CharField(max_length=15,default='')
+    call_number = models.CharField(max_length=15,default='')
+    service_type = models.CharField(max_length=15,default='')
     time_stamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
@@ -24,9 +28,9 @@ class FormBasic(models.Model):
 
 class Reoccuring(models.Model):
 
-    name = models.CharField(max_length=20)
-    phone = models.CharField(max_length=10)
-    birthdate = models.CharField(max_length=8)
+    patient_name = models.CharField(max_length=20)
+    patient_phone = models.CharField(max_length=10)
+    patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30)
     number_of_passengers = models.CharField(max_length=1)
     start_date = models.CharField(max_length=12)

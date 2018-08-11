@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from . import forms
 from .models import FormBasic, Reoccuring
+import csv
 
 # Create your views here.
 
@@ -42,16 +43,42 @@ def book_view_reoccuring(request):
         return render(request, 'rides/reoccuring.html',{'form': form})
 
 @login_required(login_url='/accounts/login')
-def download_page(request, pk=None):
+def download_page(request):
+    one_off = FormBasic.objects.all().order_by('-time_stamp')
+    reocurring = Reoccuring.objects.all().order_by('-time_stamp')
+    return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})
+
+@login_required(login_url='/accounts/login')
+def one_off_dr(request, pk=None):
     if pk:
-        ride_object = pk
-        print(ride_object)
-        one_off = FormBasic.objects.all().order_by('-time_stamp')
-        reocurring = Reoccuring.objects.all().order_by('-time_stamp')
-        return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring, 'ride_object' : ride_object})
+        print('returned private key: ',pk)
+        db = FormBasic.objects.get(pk=pk)
+        name = db.patient_name
+        phone = db.patient_phone
+        start_address = db.pickup_address
+        end_address = db.destination_address
+        pickup_date = (db.appointment_date + ' ' + db.pickup_time)
+        return_date = ''
+        account_id = db.account_number
+        service_type = db.service_type
+        passengers = db.number_of_passengers
+        customer_notes = ''
+        driver_name = ''
+        driver_notes = ''
+        dispatcher_notes = db.call_number
+        driver_email = ''
+
+        # Create CSV
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="dashride-upload.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(['customer_name','customer_phone','customer_email','start_address','end_address','pickup_date','return_date','account_id','service_type','passengers','driver_notes','customer_notes','driver_name','driver_email'])
+        writer.writerow([name,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
+        return response
 
     else:
-        print('There is no PK')
+        print('Something went wrong')
         one_off = FormBasic.objects.all().order_by('-time_stamp')
         reocurring = Reoccuring.objects.all().order_by('-time_stamp')
         return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})

@@ -58,6 +58,7 @@ def one_off_dr(request, pk=None):
         start_address = db.pickup_address
         end_address = db.destination_address
         pickup_date = (db.appointment_date + ' ' + db.pickup_time)
+        return_time = (db.appointment_date + ' ' + db.return_time)
         return_date = ''
         account_id = db.account_number
         service_type = db.service_type
@@ -74,8 +75,17 @@ def one_off_dr(request, pk=None):
 
         writer = csv.writer(response)
         writer.writerow(['customer_name','customer_phone','customer_email','start_address','end_address','pickup_date','return_date','account_id','service_type','passengers','driver_notes','customer_notes','driver_name','driver_email'])
-        writer.writerow([name,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
-        return response
+
+        if db.round_trip == True:
+            writer.writerow([name,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
+            writer.writerow([name,phone,'', end_address, start_address, return_time, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
+            return response
+        else:
+            writer.writerow([name,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
+            return response
+
+
+
 
     else:
         print('Something went wrong')

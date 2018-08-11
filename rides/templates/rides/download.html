@@ -10,7 +10,10 @@
   <ul class="list-group">
   <p style="text-align: center;">One-Off Rides</p>
   {% for ride in one_off %}
-   <li class="list-group-item vertical-align" style="margin: 5px;"><span>Author: </span>{{ride.author}}     |    <span>Patient: {{ride.name}}</span>   |    Created: {{ride.time_stamp}}<span class="button-group pull-right"><button type="submit">Dashride</button><button type="submit">Office Ally</button></span></li>
+   <li class="list-group-item vertical-align" style="margin: 5px;"><span>Author: </span>{{ride.author}}
+   |<span>Patient: {{ride.name}}</span>|Created: {{ride.time_stamp}}
+  <span class="btn-group" role="group"><a href="{% url 'rides:download_with_pk' pk=ride.pk %}" class="button-">Dashride</a> </span>
+
   {% endfor %}
     </ul>
 </div>

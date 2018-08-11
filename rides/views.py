@@ -42,7 +42,11 @@ def book_view_reoccuring(request):
         return render(request, 'rides/reoccuring.html',{'form': form})
 
 @login_required(login_url='/accounts/login')
-def download_page(request):
-    one_off = FormBasic.objects.all().order_by('time_stamp')
-    reocurring = Reoccuring.objects.all().order_by('time_stamp')
+def download_page(request, pk=None):
+    if pk:
+        ride_object = FormBasic.objects.get(pk=pk)
+        args = {'ride_object' : ride_object}
+
+    one_off = FormBasic.objects.all().order_by('-time_stamp')
+    reocurring = Reoccuring.objects.all().order_by('-time_stamp')
     return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})

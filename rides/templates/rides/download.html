@@ -11,8 +11,11 @@
   <p style="text-align: center;">One-Off Rides</p>
   {% for ride in one_off %}
    <li class="list-group-item vertical-align" style="margin: 5px;"><span>Author: </span>{{ride.author}}
-   |<span>Patient: {{ride.name}}</span>|Created: {{ride.time_stamp}}
-  <span class="btn-group" role="group"><a href="{% url 'rides:download_with_pk' pk=ride.pk %}" class="button-">Dashride</a> </span>
+   |    <span>Patient: {{ride.name}}</span>   |   Created: {{ride.time_stamp}}
+  <span class="pull-right gray"><a class="btn btn-primary btn-xs" href="{% url 'rides:download_with_pk' pk=ride.pk %}">Dashride</a>  <span style="margin-right: 5px;">  </span> <a class="btn btn-primary btn-xs" href="{% url 'rides:download_with_pk' pk=ride.pk %}">Office Ally</a> </span>
+
+  <!-- When button clicked send Pk number data to the one_off scripts to parse the CSV or TSV  -->
+  <!-- write code here -->
 
   {% endfor %}
     </ul>

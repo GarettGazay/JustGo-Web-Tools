@@ -7,5 +7,6 @@ urlpatterns = [
     # path('create', views.booking_create, name='create'),
     path('book', views.book_view, name='book'),
     path('multi', views.book_view_reoccuring, name='multi'),
+    path('download', views.download_page, name='download'),
 
 ]

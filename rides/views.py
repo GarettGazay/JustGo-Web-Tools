@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from . import forms
+from .models import FormBasic, Reoccuring
 
 # Create your views here.
 
@@ -39,3 +40,9 @@ def book_view_reoccuring(request):
     else:
         form = forms.ReoccuringBooking()
         return render(request, 'rides/reoccuring.html',{'form': form})
+
+@login_required(login_url='/accounts/login')
+def download_page(request):
+    one_off = FormBasic.objects.all().order_by('time_stamp')
+    reocurring = Reoccuring.objects.all().order_by('time_stamp')
+    return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})

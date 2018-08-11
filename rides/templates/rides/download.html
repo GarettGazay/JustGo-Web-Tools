@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h4 style="text-align: center;">Download page</h4>
+
+<!-- Loop One off rides from db -->
+<br>
+<div class="one-off-rides">
+  <ul class="list-group">
+  <p style="text-align: center;">One-Off Rides</p>
+  {% for ride in one_off %}
+   <li class="list-group-item vertical-align" style="margin: 5px;"><span>Author: </span>{{ride.author}}     |    <span>Patient: {{ride.name}}</span>   |    Created: {{ride.time_stamp}}<span class="button-group pull-right"><button type="submit">Dashride</button><button type="submit">Office Ally</button></span></li>
+  {% endfor %}
+    </ul>
+</div>
+
+
+<!-- Loope reocurring rides from db -->
+
+{% endblock %}
+
+
+
+text-align: right;

@@ -167,3 +167,17 @@ font-family: 'Lato', sans-serif;
   display: block;
   text-align: center;
 }
+
+.one-off-li {
+  text-align: center;
+  color: gray;
+
+}
+
+.one-off-button {
+  margin-left: 100px;
+}
+
+.red-color {
+  color: red;
+}

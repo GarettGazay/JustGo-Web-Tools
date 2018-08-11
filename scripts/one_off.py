@@ -2,6 +2,9 @@ from rides.models import FormBasic
 
 def run():
     #test
-    data = FormBasic.objects.all()
-    data.delete()
+    data = FormBasic.objects.get('name')
+
+
+
+
     # Gather most recent database entry

@@ -51,7 +51,7 @@ def download_page(request):
 @login_required(login_url='/accounts/login')
 def one_off_dr(request, pk=None):
     if pk:
-        print('returned private key: ',pk)
+        print('returned primary key: ',pk)
         db = FormBasic.objects.get(pk=pk)
         name = db.patient_name
         phone = db.patient_phone
@@ -74,7 +74,7 @@ def one_off_dr(request, pk=None):
         response['Content-Disposition'] = 'attachment; filename="dashride-upload.csv"'
 
         writer = csv.writer(response)
-        writer.writerow(['customer_name','customer_phone','customer_email','start_address','end_address','pickup_date','return_date','account_id','service_type','passengers','driver_notes','customer_notes','driver_name','driver_email'])
+        writer.writerow(['customer_name','customer_phone','customer_email','start_address','end_address','pickup_date','return_date','account_id','service_type','passengers','driver_notes','dispatcher_notes','customer_notes','driver_name','driver_email'])
 
         if db.round_trip == True:
             writer.writerow([name,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
@@ -84,8 +84,35 @@ def one_off_dr(request, pk=None):
             writer.writerow([name,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
             return response
 
+    else:
+        print('Something went wrong')
+        one_off = FormBasic.objects.all().order_by('-time_stamp')
+        reocurring = Reoccuring.objects.all().order_by('-time_stamp')
+        return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})
 
+@login_required(login_url='/accounts/login')
+def one_off_oa(request, pk=None):
+    if pk:
+        print('returned primary key: ', pk)
+        db = FormBasic.objects.get(pk=pk)
+        name = db.patient_name
+        phone = db.patient_phone
+        start_address = db.pickup_address
+        end_address = db.destination_address
+        pickup_date = (db.appointment_date + ' ' + db.pickup_time)
+        return_time = (db.appointment_date + ' ' + db.return_time)
+        return_date = ''
+        account_id = db.account_number
+        service_type = db.service_type
+        passengers = db.number_of_passengers
+        customer_notes = ''
+        driver_name = ''
+        driver_notes = ''
+        dispatcher_notes = db.call_number
+        driver_email = ''
 
+        # Find out how many dates
+        # Multiply appropriate data and write to TSV
 
     else:
         print('Something went wrong')

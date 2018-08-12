@@ -25,10 +25,10 @@ class CreateBooking(forms.ModelForm):
 
         }
 
-class ReoccuringBooking(forms.ModelForm):
+class ReocurringBooking(forms.ModelForm):
 
     class Meta:
-        model = models.Reoccuring
+        model = models.Reocurring
         fields = ['patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','start_date','end_date','pickup_address_one','destination_address_one','pickup_time_one','return_time_one','weekday_one', 'pickup_address_two','destination_address_two','pickup_time_two','return_time_two','weekday_two', ]
         widgets = {
         'patient_name' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Patient Name'}),

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from . import forms
-from .models import FormBasic, Reoccuring
+from .models import FormBasic, Reocurring
 import csv
 
 # Create your views here.
@@ -26,9 +26,9 @@ def book_view(request):
 
 
 @login_required(login_url='/accounts/login')
-def book_view_reoccuring(request):
+def book_view_reocurring(request):
     if request.method == 'POST':
-        form = forms.ReoccuringBooking(request.POST,request.FILES)
+        form = forms.ReocurringBooking(request.POST,request.FILES)
         print(form.errors)
         if form.is_valid():
             #save booking to DB
@@ -39,14 +39,14 @@ def book_view_reoccuring(request):
         else:
             return redirect('rides:multi')
     else:
-        form = forms.ReoccuringBooking()
-        return render(request, 'rides/reoccuring.html',{'form': form})
+        form = forms.ReocurringBooking()
+        return render(request, 'rides/reocurring.html',{'form': form})
 
 @login_required(login_url='/accounts/login')
 def download_page(request):
     one_off = FormBasic.objects.all().order_by('-time_stamp')
-    reocurring = Reoccuring.objects.all().order_by('-time_stamp')
-    return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})
+    reocurring = Reocurring.objects.all().order_by('-time_stamp')
+    return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})
 
 @login_required(login_url='/accounts/login')
 def one_off_dr(request, pk=None):
@@ -87,7 +87,7 @@ def one_off_dr(request, pk=None):
     else:
         print('Something went wrong')
         one_off = FormBasic.objects.all().order_by('-time_stamp')
-        reocurring = Reoccuring.objects.all().order_by('-time_stamp')
+        reocurring = Reocurring.objects.all().order_by('-time_stamp')
         return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})
 
 @login_required(login_url='/accounts/login')
@@ -117,5 +117,5 @@ def one_off_oa(request, pk=None):
     else:
         print('Something went wrong')
         one_off = FormBasic.objects.all().order_by('-time_stamp')
-        reocurring = Reoccuring.objects.all().order_by('-time_stamp')
-        return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})
+        reocurring = Reocurring.objects.all().order_by('-time_stamp')
+        return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})

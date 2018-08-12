@@ -26,7 +26,7 @@ class FormBasic(models.Model):
     def __str__(self):
         return str(self.author)
 
-class Reoccuring(models.Model):
+class Reocurring(models.Model):
 
     patient_name = models.CharField(max_length=20)
     patient_phone = models.CharField(max_length=10)

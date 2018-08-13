@@ -25,6 +25,23 @@
 
 <!-- Loope reocurring rides from db -->
 
+<div class="reocurring-rides">
+  <ul class="list-group">
+  <p style="text-align: center;">Reocurring Bookings</p>
+  {% for ride in reocurring %}
+
+  <li class="list-group-item vertical-align" style="margin: 5px;"><span>Author: </span>{{ride.author}}
+  |    <span>Patient: {{ride.patient_name}}</span>   |   Created: {{ride.time_stamp}}
+ <span class="pull-right gray"><a class="btn btn-primary btn-xs" href="{% url 'rides:reocurring_dr' pk=ride.pk %}">Dashride</a>  <span style="margin-right: 5px;">  </span> <a class="btn btn-primary btn-xs" href="{% url 'rides:reocurring_dr' pk=ride.pk  %}">Office Ally</a> </span>
+
+
+  {% endfor %}
+    </ul>
+
+
+</div>
+
+
 {% endblock %}
 
 

@@ -119,3 +119,15 @@ def one_off_oa(request, pk=None):
         one_off = FormBasic.objects.all().order_by('-time_stamp')
         reocurring = Reocurring.objects.all().order_by('-time_stamp')
         return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})
+
+
+@login_required(login_url='/accounts/login')
+def reocurring_dr(request, pk=None):
+    if pk:
+        print('returned primary key: ', pk)
+
+    else:
+        print('Something went wrong...')
+        one_off = FormBasic.objects.all().order_by('-time_stamp')
+        reocurring = Reocurring.objects.all().order_by('-time_stamp')
+        return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})

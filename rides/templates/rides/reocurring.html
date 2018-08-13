@@ -43,20 +43,48 @@ $(function() {
   $("label").hide();
   var one = $("#id_pickup_address_one, #id_destination_address_one, #id_pickup_time_one, #id_return_time_one, #id_weekday_one");
   var two = $("#id_pickup_address_two, #id_destination_address_two, #id_pickup_time_two, #id_return_time_two,#id_weekday_two");
+  var three = $("#id_pickup_address_three, #id_destination_address_three, #id_pickup_time_three, #id_return_time_three,#id_weekday_three");
+  var four = $("#id_pickup_address_four, #id_destination_address_four, #id_pickup_time_four, #id_return_time_four,#id_weekday_four");
+  var five = $("#id_pickup_address_five, #id_destination_address_five, #id_pickup_time_five, #id_return_time_five,#id_weekday_five");
+
   one.hide();
   two.hide();
+  three.hide();
+  four.hide();
+  five.hide();
 
     // Add more days toggle
     var count = 0;
     $('#add_a_date').click(function () {
       count += 1;
-      console.log(count)
-      if(count == 1)
-         return one.show();
-      if(count == 2)
-         $('#line-break').insertAfter('#id_weekday_one')
-         return two.show();
+      console.log(count);
+
+      switch(count) {
+        case 1:
+          return one.show();
+          break;
+        case 2:
+          $('#line-break').insertAfter('#id_weekday_one');
+          return two.show();
+          break;
+        case 3:
+          $('#line-break').insertAfter('#id_weekday_two');
+          return three.show();
+          break;
+        case 4:
+          $('#line-break').insertAfter('#id_weekday_three');
+          return four.show();
+          break;
+
+      default:
+      console.log('default triggered');
+
+      }
+
+
     });
+
+
   });
 
 </script>

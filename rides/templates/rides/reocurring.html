@@ -4,6 +4,7 @@
 
 <div class="basic-data">
     <h4 class="booking-title"> JustGo Booking Agent</h4>
+    <h5 class="red-h">This form is for reocurring trips for the month of <span style="font-weight: bold;">{{ next_month }} </span></h5>
     <form class="site-form" action="{% url 'rides:multi' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
@@ -16,7 +17,7 @@
 
 <script type="text/javascript">
   $('#id_end_date').after('<h5 id="multi-label">Schedule Mulitple Dates</h5>');
-  $( "#add_a_date" ).insertAfter( $( "#multi-label" ) );
+  $( "#add_a_date" ).insertAfter( $( "#id_month" ) );
 </script>
 
 
@@ -34,7 +35,6 @@ $( function() {
        interval:15,
        });
      });
-
 </script>
 
 <!-- Multiple booking form functionality -->
@@ -78,13 +78,8 @@ $(function() {
 
       default:
       console.log('default triggered');
-
       }
-
-
     });
-
-
   });
 
 </script>

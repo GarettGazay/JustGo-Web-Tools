@@ -32,6 +32,9 @@ input[type="text"] {
   color: red;
 }
 
+.red-h {
+  color: red;
+}
 
 .wrapper{
   max-width: 960px;

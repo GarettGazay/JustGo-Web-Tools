@@ -12,4 +12,5 @@ urlpatterns = [
     # url(r'^download/(?P<pk>\d+)$', views.download_page, name='download_with_pk'),
     url(r'^one_off_dr/(?P<pk>\d+)$', views.one_off_dr, name='one_off_dr'),
     url(r'^reocurring_dr/(?P<pk>\d+)$', views.reocurring_dr, name='reocurring_dr'),
+
 ]

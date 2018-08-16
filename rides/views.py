@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from . import forms
 from .models import FormBasic, Reocurring
+from datetime import date, timedelta, datetime
+from dateutil import relativedelta
+import datetime
 import csv
 
 # Create your views here.
@@ -24,9 +27,11 @@ def book_view(request):
         form = forms.CreateBooking()
         return render(request, 'rides/form.html',{'form': form})
 
-
 @login_required(login_url='/accounts/login')
 def book_view_reocurring(request):
+    next_month = datetime.date.today() + relativedelta.relativedelta(months=1)
+    next_month = next_month.strftime("%B %Y")
+
     if request.method == 'POST':
         form = forms.ReocurringBooking(request.POST,request.FILES)
         print(form.errors)
@@ -35,12 +40,12 @@ def book_view_reocurring(request):
             instance = form.save(commit=False)
             instance.author= request.user
             instance.save()
-            return redirect('rides:multi') # Make a congratulations url
+            return redirect('rides:multi') 
         else:
             return redirect('rides:multi')
     else:
         form = forms.ReocurringBooking()
-        return render(request, 'rides/reocurring.html',{'form': form})
+        return render(request, 'rides/reocurring.html',{'form': form, 'next_month' : next_month})
 
 @login_required(login_url='/accounts/login')
 def download_page(request):
@@ -120,11 +125,25 @@ def one_off_oa(request, pk=None):
         reocurring = Reocurring.objects.all().order_by('-time_stamp')
         return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})
 
-
 @login_required(login_url='/accounts/login')
 def reocurring_dr(request, pk=None):
+
     if pk:
+        db = Reocurring.objects.get(pk=pk)
         print('returned primary key: ', pk)
+        name = db.patient_name
+        phone = db.patient_phone
+        birthdate = db.atient_birthdate
+        med_num = db.patient_med_number
+        num_pass = db.number_of_passengers
+        month = db.start_month
+
+
+    # Bring in form data from db
+    # If day = weekday, run code to  create array of dates
+    # use number of dates to create rows within the csv,
+    # add dates to each in chrono order
+
 
     else:
         print('Something went wrong...')

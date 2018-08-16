@@ -33,8 +33,7 @@ class Reocurring(models.Model):
     patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30)
     number_of_passengers = models.CharField(max_length=1)
-    start_date = models.CharField(max_length=12)
-    end_date = models.CharField(max_length=12)
+    month = models.CharField(max_length=30)
 
     pickup_address_one = models.CharField(max_length=30, null=True, blank=True)
     destination_address_one = models.CharField(max_length=30, null=True, blank=True)

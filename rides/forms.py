@@ -25,13 +25,12 @@ class CreateBooking(forms.ModelForm):
 
         }
 
+
 class ReocurringBooking(forms.ModelForm):
 
     class Meta:
-
-
         model = models.Reocurring
-        fields = ['patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','start_date','end_date','pickup_address_one','destination_address_one','pickup_time_one','return_time_one','weekday_one', 'pickup_address_two','destination_address_two','pickup_time_two','return_time_two','weekday_two','pickup_address_three','destination_address_three','pickup_time_three','return_time_three','weekday_three','pickup_address_four','destination_address_four','pickup_time_four','return_time_four','weekday_four','pickup_address_five','destination_address_five','pickup_time_five','return_time_five','weekday_five' ]
+        fields = ['patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','month','pickup_address_one','destination_address_one','pickup_time_one','return_time_one','weekday_one', 'pickup_address_two','destination_address_two','pickup_time_two','return_time_two','weekday_two','pickup_address_three','destination_address_three','pickup_time_three','return_time_three','weekday_three','pickup_address_four','destination_address_four','pickup_time_four','return_time_four','weekday_four','pickup_address_five','destination_address_five','pickup_time_five','return_time_five','weekday_five' ]
 
         widgets = {
         'patient_name' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Patient Name'}),
@@ -39,8 +38,7 @@ class ReocurringBooking(forms.ModelForm):
         'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'Patient Birthdate'}),
         'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Patient Medical Number'}),
         'number_of_passengers' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Number of Passengers - Use digits'}),
-        'start_date' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Start Date'}),
-        'end_date' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'End Date'}),
+        'month' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Select Month'}),
 
         'pickup_address_one' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Pickup Address One'}),
         'destination_address_one' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Destination Address One'}),

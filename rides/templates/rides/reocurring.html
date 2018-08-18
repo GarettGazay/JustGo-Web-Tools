@@ -3,23 +3,13 @@
 {% block content %}
 
 <div class="basic-data">
-    <h4 class="booking-title"> JustGo Booking Agent</h4>
-    <h5 class="red-h">This form is for reocurring trips for the month of <span style="font-weight: bold;">{{ next_month }} </span></h5>
+    <h4 class="booking-title"> JustGo Reocurring Booking Agent</h4>
     <form class="site-form" action="{% url 'rides:multi' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
       <input id= "final-submission" class="create-booking btn btn-success" type="submit" name="" value="Create Multi Booking">
     </form>
 </div>
-
-<button class="btn btn-primary" id="add_a_date" type="button" name="button">Add a Date</button>
-<span id="line-break"></span>
-
-<script type="text/javascript">
-  $('#id_end_date').after('<h5 id="multi-label">Schedule Mulitple Dates</h5>');
-  $( "#add_a_date" ).insertAfter( $( "#id_month" ) );
-</script>
-
 
 <script type="text/javascript">
 
@@ -35,54 +25,18 @@ $( function() {
        interval:15,
        });
      });
+
 </script>
 
-<!-- Multiple booking form functionality -->
 <script type="text/javascript">
-$(function() {
-  $("label").hide();
-  var one = $("#id_pickup_address_one, #id_destination_address_one, #id_pickup_time_one, #id_return_time_one, #id_weekday_one");
-  var two = $("#id_pickup_address_two, #id_destination_address_two, #id_pickup_time_two, #id_return_time_two,#id_weekday_two");
-  var three = $("#id_pickup_address_three, #id_destination_address_three, #id_pickup_time_three, #id_return_time_three,#id_weekday_three");
-  var four = $("#id_pickup_address_four, #id_destination_address_four, #id_pickup_time_four, #id_return_time_four,#id_weekday_four");
-  var five = $("#id_pickup_address_five, #id_destination_address_five, #id_pickup_time_five, #id_return_time_five,#id_weekday_five");
-
-  one.hide();
-  two.hide();
-  three.hide();
-  four.hide();
-  five.hide();
-
-    // Add more days toggle
-    var count = 0;
-    $('#add_a_date').click(function () {
-      count += 1;
-      console.log(count);
-
-      switch(count) {
-        case 1:
-          return one.show();
-          break;
-        case 2:
-          $('#line-break').insertAfter('#id_weekday_one');
-          return two.show();
-          break;
-        case 3:
-          $('#line-break').insertAfter('#id_weekday_two');
-          return three.show();
-          break;
-        case 4:
-          $('#line-break').insertAfter('#id_weekday_three');
-          return four.show();
-          break;
-
-      default:
-      console.log('default triggered');
-      }
-    });
+  $(function() {
+    var checkBoxes = "#id_weekdays";
+    checkBoxes.hide();
+    checkboxes.fade(5000);
   });
-
 </script>
+
+
 
 <!-- Confirm before submit -->
 <script type="text/javascript">

@@ -192,3 +192,7 @@ input[type=checkbox], input[type=radio] {
     line-height: normal;
     margin: 0 auto;
 }
+
+#id_pickup_address_one {
+  margim-top: 50px;
+}

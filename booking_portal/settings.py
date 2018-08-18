@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rides',
     'import_export',
     'jquery',
-    'django_extensions'
+    'django_extensions',
+    'multiselectfield',
 
 
 

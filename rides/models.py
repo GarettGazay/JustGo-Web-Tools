@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from multiselectfield import MultiSelectField
 
 
 # Create your models here.
@@ -27,45 +28,26 @@ class FormBasic(models.Model):
         return str(self.author)
 
 class Reocurring(models.Model):
+    DAY_CHOICES = (('Mon','Mon'),('Tue','Tue'),('Wed','Wed'),('Thur','Thur'),('Fri','Fri'),('Sat','Sat'),('Sun','Sun'))
 
+    account_number = models.CharField(max_length=15,default='')
+    call_number = models.CharField(max_length=15,default='')
+    service_type = models.CharField(max_length=15,default='')
     patient_name = models.CharField(max_length=20)
     patient_phone = models.CharField(max_length=10)
     patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30)
     number_of_passengers = models.CharField(max_length=1)
-    month = models.CharField(max_length=30)
 
-    pickup_address_one = models.CharField(max_length=30, null=True, blank=True)
-    destination_address_one = models.CharField(max_length=30, null=True, blank=True)
-    pickup_time_one = models.CharField(max_length=12,null=True, blank=True)
-    return_time_one =  models.CharField(max_length=12,null=True, blank=True)
-    weekday_one =  models.CharField(max_length=12, null=True, blank=True)
+    pickup_address = models.CharField(max_length=30, null=True, blank=True)
+    destination_address = models.CharField(max_length=30, null=True, blank=True)
+    pickup_time = models.CharField(max_length=12,null=True, blank=True)
+    return_time =  models.CharField(max_length=12,null=True, blank=True)
+    weekdays =  MultiSelectField(choices = DAY_CHOICES,null=True, blank=True)
+    start_date = models.CharField(max_length=50, null=True,blank=True)
+    end_date = models.CharField(max_length=50, null=True,blank=True)
 
-    pickup_address_two = models.CharField(max_length=30, null=True, blank=True)
-    destination_address_two = models.CharField(max_length=30, null=True, blank=True)
-    pickup_time_two = models.CharField(max_length=12,null=True, blank=True)
-    return_time_two =  models.CharField(max_length=12,null=True, blank=True)
-    weekday_two =  models.CharField(max_length=12, null=True, blank=True)
-
-    pickup_address_three = models.CharField(max_length=30, null=True, blank=True)
-    destination_address_three = models.CharField(max_length=30, null=True, blank=True)
-    pickup_time_three = models.CharField(max_length=12,null=True, blank=True)
-    return_time_three =  models.CharField(max_length=12,null=True, blank=True)
-    weekday_three =  models.CharField(max_length=12, null=True, blank=True)
-
-    pickup_address_four = models.CharField(max_length=30, null=True, blank=True)
-    destination_address_four = models.CharField(max_length=30, null=True, blank=True)
-    pickup_time_four = models.CharField(max_length=12,null=True, blank=True)
-    return_time_four =  models.CharField(max_length=12,null=True, blank=True)
-    weekday_four =  models.CharField(max_length=12, null=True, blank=True)
-
-    pickup_address_five = models.CharField(max_length=30, null=True, blank=True)
-    destination_address_five = models.CharField(max_length=30, null=True, blank=True)
-    pickup_time_five = models.CharField(max_length=12,null=True, blank=True)
-    return_time_five =  models.CharField(max_length=12,null=True, blank=True)
-    weekday_five =  models.CharField(max_length=12, null=True, blank=True)
-
-    time_stamp = models.DateTimeField(editable=True, auto_now_add=True)
+    time_stamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
 

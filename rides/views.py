@@ -40,7 +40,7 @@ def book_view_reocurring(request):
             instance = form.save(commit=False)
             instance.author= request.user
             instance.save()
-            return redirect('rides:multi') 
+            return redirect('rides:multi')
         else:
             return redirect('rides:multi')
     else:
@@ -139,10 +139,7 @@ def reocurring_dr(request, pk=None):
         month = db.start_month
 
 
-    # Bring in form data from db
-    # If day = weekday, run code to  create array of dates
-    # use number of dates to create rows within the csv,
-    # add dates to each in chrono order
+
 
 
     else:

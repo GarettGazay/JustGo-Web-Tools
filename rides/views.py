@@ -145,23 +145,49 @@ def reocurring_dr(request, pk=None):
         return_time = db.return_time
         start_date = db.start_date
         end_date = db.end_date
+        round_trip = db.round_trip
         day_choices = []
         for i in db.weekdays:
             day_choices.append(i)
-        print(day_choices)
-
-        one_off = FormBasic.objects.all().order_by('-time_stamp')
-        reocurring = Reocurring.objects.all().order_by('-time_stamp')
-
-        return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})
 
 
+        # Loop this dictionary with STRs from day_choices, if match, feed into date algorithm
+        day_codes = {'Mon' : 0, 'Tue' : 1, 'Wed' : 2, 'Thur' : 3, 'Fri' : 4, 'Sat' : 5, 'Sun' : 6}
+
+        sd = start_date.split('-')
+        sd_year = int(sd[0])
+        sd_month = int(sd[1])
+        sd_day = int(sd[2])
+        ed = end_date.split('-')
+        ed_year = int(ed[0])
+        ed_month = int(ed[1])
+        ed_day = int(ed[2])
+        d1 = date(sd_year,sd_month,sd_day) # Start date
+        d2 = date(ed_year,ed_month,ed_day) # End date
+        print('Start date: ',d1)
+        print('End date: ',d2)
+
+        delta = d2 - d1 #timedelta - time between two times
 
 
+        # Date algorithm
+        for i in range(delta.days + 1):
+            x = d1 + timedelta(i) # loop dates
 
+            # Match dictionary to chosen dates, produce list of day numbers for datetime
+            parsed_day_codes = [] # date numbers that correspond to the date.day method in datetime
+            for i in day_choices:
+                for key, value in day_codes.items():
+                    if i == key:
+                        parsed_day_codes.append(value)
 
-    else:
-        print('Something went wrong...')
+            # match the number of days
+            for i in parsed_day_codes:
+                if x.weekday() == i:
+                    print(x)
+
+        print(parsed_day_codes)
+
         one_off = FormBasic.objects.all().order_by('-time_stamp')
         reocurring = Reocurring.objects.all().order_by('-time_stamp')
         return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})

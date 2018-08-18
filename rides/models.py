@@ -48,33 +48,8 @@ class Reocurring(models.Model):
     weekdays =  MultiSelectField(choices = DAY_CHOICES,null=True, blank=True)
     round_trip = models.BooleanField(default=False)
 
-
-
     time_stamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
-
     def __str__(self):
         return str(self.author)
-
-
-
-    # pickup_time_three = models.CharField(max_length=12)
-    # return_time_three =  models.CharField(max_length=12)
-    # pickup_day_three =  models.CharField(max_length=12)
-    #
-    # pickup_time_four =  models.CharField(max_length=12)
-    # return_time_four = models.CharField(max_length=12)
-    # pickup_day_four =  models.CharField(max_length=12)
-    #
-    # pickup_time_five =  models.CharField(max_length=12)
-    # return_time_five =  models.CharField(max_length=12)
-    # pickup_day_five =  models.CharField(max_length=12)
-    #
-    # pickup_time_six = models.CharField(max_length=12)
-    # return_time_six =  models.CharField(max_length=12)
-    # pickup_day_six =  models.CharField(max_length=12)
-    #
-    # pickup_time_seven =  models.CharField(max_length=12)
-    # return_time_seven =  models.CharField(max_length=12)
-    # pickup_day_seven =  models.CharField(max_length=12)

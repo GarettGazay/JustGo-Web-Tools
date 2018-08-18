@@ -19,7 +19,7 @@ $( function() {
      $(dateFields).datepicker({ dateFormat: 'yy-mm-dd'});
 
 // Timefields
-   var timeFields = "#id_pickup_time_one,#id_return_time_one,#id_pickup_time_two,#id_return_time_two";
+   var timeFields = "#id_pickup_time,#id_return_time";
    $(timeFields).timepicker({
        timeFormat: 'HH:mm',
        interval:15,
@@ -28,15 +28,15 @@ $( function() {
 
 </script>
 
+<!-- Inline Checkboxes -->
 <script type="text/javascript">
   $(function() {
-    var checkBoxes = "#id_weekdays";
-    checkBoxes.hide();
-    checkboxes.fade(5000);
+    var checkBoxes = $("ul li");
+    $(checkBoxes).css("display","inline");
+    $(checkBoxes).css("margin","0px 5px 0px 5px");
+    console.log(checkBoxes);
   });
 </script>
-
-
 
 <!-- Confirm before submit -->
 <script type="text/javascript">

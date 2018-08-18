@@ -36,7 +36,7 @@ class ReocurringBooking(forms.ModelForm):
 
     class Meta:
         model = models.Reocurring
-        fields = ['account_number','call_number','service_type','patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','pickup_address','destination_address','pickup_time','return_time','weekdays','start_date','end_date']
+        fields = ['account_number','call_number','service_type','patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','pickup_address','destination_address','pickup_time','return_time','start_date','end_date','weekdays','round_trip']
 
         widgets = {
         'account_number' : forms.TextInput(attrs={'class' : 'form-control'}),
@@ -54,4 +54,6 @@ class ReocurringBooking(forms.ModelForm):
         'return_time' : forms.TextInput(attrs={'class' : 'form-control'}),
         'start_date' : forms.TextInput(attrs={'class' : 'form-control'}),
         'end_date' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'round_trip' : forms.CheckboxInput(attrs={'style' : 'margin: 0 auto; width: 30px; height: 30px;'}),
+
 }

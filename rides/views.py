@@ -131,12 +131,30 @@ def reocurring_dr(request, pk=None):
     if pk:
         db = Reocurring.objects.get(pk=pk)
         print('returned primary key: ', pk)
+        account_number = db.account_number
+        call_number = db.call_number
+        service_type = db.service_type
         name = db.patient_name
         phone = db.patient_phone
-        birthdate = db.atient_birthdate
+        birthdate = db.patient_birthdate
         med_num = db.patient_med_number
         num_pass = db.number_of_passengers
-        month = db.start_month
+        pickup_address = db.pickup_address
+        destination_address = db.destination_address
+        pickup_time = db.pickup_time
+        return_time = db.return_time
+        start_date = db.start_date
+        end_date = db.end_date
+        day_choices = []
+        for i in db.weekdays:
+            day_choices.append(i)
+        print(day_choices)
+
+        one_off = FormBasic.objects.all().order_by('-time_stamp')
+        reocurring = Reocurring.objects.all().order_by('-time_stamp')
+
+        return render(request, 'rides/download.html', {'one_off' : one_off, 'reoccuring' : reocurring})
+
 
 
 

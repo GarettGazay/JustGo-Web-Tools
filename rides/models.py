@@ -43,9 +43,12 @@ class Reocurring(models.Model):
     destination_address = models.CharField(max_length=30, null=True, blank=True)
     pickup_time = models.CharField(max_length=12,null=True, blank=True)
     return_time =  models.CharField(max_length=12,null=True, blank=True)
-    weekdays =  MultiSelectField(choices = DAY_CHOICES,null=True, blank=True)
     start_date = models.CharField(max_length=50, null=True,blank=True)
     end_date = models.CharField(max_length=50, null=True,blank=True)
+    weekdays =  MultiSelectField(choices = DAY_CHOICES,null=True, blank=True)
+    round_trip = models.BooleanField(default=False)
+
+
 
     time_stamp = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)

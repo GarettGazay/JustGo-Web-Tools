@@ -5,6 +5,7 @@ from . import forms
 from .models import FormBasic, Reocurring
 from datetime import date, timedelta, datetime
 from dateutil import relativedelta
+from django.contrib import messages
 import datetime
 import csv
 
@@ -40,6 +41,7 @@ def book_view_reocurring(request):
             instance = form.save(commit=False)
             instance.author= request.user
             instance.save()
+            messages.success(request, 'Form Submission Successful')
             return redirect('rides:multi')
         else:
             return redirect('rides:multi')
@@ -149,7 +151,7 @@ def reocurring_dr(request, pk=None):
         day_choices = []
         for i in db.weekdays:
             day_choices.append(i)
-
+        date_list = []
 
         # Loop this dictionary with STRs from day_choices, if match, feed into date algorithm
         day_codes = {'Mon' : 0, 'Tue' : 1, 'Wed' : 2, 'Thur' : 3, 'Fri' : 4, 'Sat' : 5, 'Sun' : 6}
@@ -169,12 +171,10 @@ def reocurring_dr(request, pk=None):
 
         delta = d2 - d1 #timedelta - time between two times
 
-
-        # Date algorithm
+        ### Date algorithm ###
         for i in range(delta.days + 1):
             x = d1 + timedelta(i) # loop dates
 
-            # Match dictionary to chosen dates, produce list of day numbers for datetime
             parsed_day_codes = [] # date numbers that correspond to the date.day method in datetime
             for i in day_choices:
                 for key, value in day_codes.items():
@@ -185,9 +185,26 @@ def reocurring_dr(request, pk=None):
             for i in parsed_day_codes:
                 if x.weekday() == i:
                     print(x)
-
+                    date_list.append(str(x))
+        print('Datelist: ',date_list)
         print(parsed_day_codes)
 
+        # Create CSV
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="dashride-upload.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(['customer_name','customer_phone','customer_email','start_address','end_address','pickup_date','return_date','account_id','service_type','passengers','driver_notes','dispatcher_notes','customer_notes','driver_name','driver_email'])
+
+        for iterdate in date_list:
+            if db.round_trip == True:
+                writer.writerow([name, phone, '', pickup_address, destination_address, iterdate + ' ' + pickup_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
+                writer.writerow([name, phone, '', destination_address, pickup_address, iterdate + ' ' + return_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
+            else:
+                writer.writerow([name, phone, '', pickup_address, destination_address, iterdate + ' ' + pickup_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
+        return response
+
+    else:
         one_off = FormBasic.objects.all().order_by('-time_stamp')
         reocurring = Reocurring.objects.all().order_by('-time_stamp')
         return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})

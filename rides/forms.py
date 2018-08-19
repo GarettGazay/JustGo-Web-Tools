@@ -19,8 +19,8 @@ class CreateBooking(forms.ModelForm):
         'appointment_date' : forms.TextInput(attrs={'class' : 'form-control'}),
         'pickup_time' : forms.TextInput(attrs={'class' : 'form-control'}),
         'return_time' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Leave blank if one way'}),
-        'pickup_address' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Address + City + State + Zip'}),
-        'destination_address' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Address + City + State + Zip'}),
+        'pickup_address' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Example: 220 University Ave, Palo Alto, CA 94301'}),
+        'destination_address' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Example: 220 University Ave, Palo Alto, CA 94301'}),
         'round_trip' : forms.CheckboxInput(attrs={'style' : 'margin: 0 auto; width: 30px; height: 30px;'}),
         }
 
@@ -48,8 +48,8 @@ class ReocurringBooking(forms.ModelForm):
         'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control'}),
         'number_of_passengers' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Number of Passengers - Use digits'}),
 
-        'pickup_address' : forms.TextInput(attrs={'class' : 'form-control'}),
-        'destination_address' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'pickup_address' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Example: 220 University Ave, Palo Alto, CA 94301'}),
+        'destination_address' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Example: 220 University Ave, Palo Alto, CA 94301'}),
         'pickup_time' : forms.TextInput(attrs={'class' : 'form-control'}),
         'return_time' : forms.TextInput(attrs={'class' : 'form-control'}),
         'start_date' : forms.TextInput(attrs={'class' : 'form-control'}),

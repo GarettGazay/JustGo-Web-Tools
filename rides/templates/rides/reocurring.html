@@ -2,14 +2,26 @@
 
 {% block content %}
 
+{% if messages %}
+<ul class="messages" id="messages" style="margin: 0 auto; text-align: center; color: red;">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
 <div class="basic-data">
     <h4 class="booking-title"> JustGo Reocurring Booking Agent</h4>
+
     <form class="site-form" action="{% url 'rides:multi' %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
       <input id= "final-submission" class="create-booking btn btn-success" type="submit" name="" value="Create Multi Booking">
     </form>
 </div>
+
 
 <script type="text/javascript">
 
@@ -44,6 +56,12 @@ $( function() {
     $('#final-submission').click(function () {
       return confirm('Are you sure you want to submit the form?');
     });
+  });
+</script>
+
+<script type="text/javascript">
+  $(function () {
+    $('#messages').fadeOut(3000);
   });
 </script>
 

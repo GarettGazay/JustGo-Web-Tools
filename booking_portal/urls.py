@@ -27,5 +27,8 @@ urlpatterns = [
 
 ]
 
+# Change admin site title
+admin.site.site_header = ("JustGoTools Admin")
+admin.site.site_title = ("JustGoTools Admin")
 
 urlpatterns += staticfiles_urlpatterns()

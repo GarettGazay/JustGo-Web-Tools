@@ -9,13 +9,20 @@ def signup_view(request):
         if form.is_valid():
             form.save()
             print('form is valid')
-            print(formset.errors)
+            # print(formset.errors)
             # log user in
             user = form.save()
             login(request, user)
-            return redirect('/accounts/choose')
-    form = UserCreationForm()
-    return render(request, 'accounts/signup.html',{'form' : form})
+            if'next' in request.POST:
+                return redirect(request.POST.get("next"))
+            else:
+                return redirect('/accounts/choose')
+    else:
+        form = UserCreationForm()
+        return render(request, 'accounts/signup.html',{'form' : form})
+
+
+
 
 def login_view(request):
     if request.method == 'POST':

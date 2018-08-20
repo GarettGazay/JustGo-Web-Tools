@@ -39,8 +39,8 @@ class Reocurring(models.Model):
     patient_med_number = models.CharField(max_length=30)
     number_of_passengers = models.CharField(max_length=1)
 
-    pickup_address = models.CharField(max_length=30, null=True, blank=True)
-    destination_address = models.CharField(max_length=30, null=True, blank=True)
+    pickup_address = models.CharField(max_length=200, null=True, blank=True)
+    destination_address = models.CharField(max_length=200, null=True, blank=True)
     pickup_time = models.CharField(max_length=12,null=True, blank=True)
     return_time =  models.CharField(max_length=12,null=True, blank=True)
     start_date = models.CharField(max_length=50, null=True,blank=True)

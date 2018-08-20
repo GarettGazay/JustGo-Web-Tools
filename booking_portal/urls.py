@@ -25,7 +25,7 @@ urlpatterns = [
     path('', account_views.login_view, name='home'),
 
 
-]
+] STATIC_ROOT = '/home/justgo/JustGo-Web-Tools/static'
 
 # Change admin site title
 admin.site.site_header = ("JustGoTools Admin")

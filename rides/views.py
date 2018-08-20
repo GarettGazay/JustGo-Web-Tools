@@ -6,6 +6,7 @@ from .models import FormBasic, Reocurring
 from datetime import date, timedelta, datetime
 from dateutil import relativedelta
 from django.contrib import messages
+from .custom_modules import oa_headers
 import datetime
 import csv
 
@@ -60,7 +61,8 @@ def one_off_dr(request, pk=None):
     if pk:
         print('returned primary key: ',pk)
         db = FormBasic.objects.get(pk=pk)
-        name = db.patient_name
+        fname = db.patient_first_name
+        lname = db.patient_last_name
         phone = db.patient_phone
         start_address = db.pickup_address
         end_address = db.destination_address
@@ -84,11 +86,11 @@ def one_off_dr(request, pk=None):
         writer.writerow(['customer_name','customer_phone','customer_email','start_address','end_address','pickup_date','return_date','account_id','service_type','passengers','driver_notes','dispatcher_notes','customer_notes','driver_name','driver_email'])
 
         if db.round_trip == True:
-            writer.writerow([name,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
-            writer.writerow([name,phone,'', end_address, start_address, return_time, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
+            writer.writerow([fname + ' ' + lname,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
+            writer.writerow([fname + ' ' + lname,phone,'', end_address, start_address, return_time, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
             return response
         else:
-            writer.writerow([name,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
+            writer.writerow([fname + ' ' + lname,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
             return response
 
     else:
@@ -102,24 +104,32 @@ def one_off_oa(request, pk=None):
     if pk:
         print('returned primary key: ', pk)
         db = FormBasic.objects.get(pk=pk)
-        name = db.patient_name
+        fname = db.patient_first_name
+        lname = db.patient_last_name
         phone = db.patient_phone
         start_address = db.pickup_address
         end_address = db.destination_address
-        pickup_date = (db.appointment_date + ' ' + db.pickup_time)
-        return_time = (db.appointment_date + ' ' + db.return_time)
-        return_date = ''
+        pickup_time = db.pickup_time
+        return_time = db.return_time
+        appointment_date = db.appointment_date
         account_id = db.account_number
         service_type = db.service_type
         passengers = db.number_of_passengers
-        customer_notes = ''
-        driver_name = ''
-        driver_notes = ''
         dispatcher_notes = db.call_number
-        driver_email = ''
+        patientMN = db.patient_med_number
+        SCFHP_ID = '24077'
 
-        # Find out how many dates
-        # Multiply appropriate data and write to TSV
+        # Create CSV
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="dashride-upload.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow([oa_headers.oa_heads()])
+        # Write DB data to TSV
+        writer.writerow(['','Santa Clara Family Health Plan', SCFHP_ID,'','','','','','','','X','','','','','',patientMN ,''
+        ,])
+        return response
+
 
     else:
         print('Something went wrong')
@@ -136,7 +146,8 @@ def reocurring_dr(request, pk=None):
         account_number = db.account_number
         call_number = db.call_number
         service_type = db.service_type
-        name = db.patient_name
+        fname = db.patient_first_name
+        lname = db.patient_last_name
         phone = db.patient_phone
         birthdate = db.patient_birthdate
         med_num = db.patient_med_number
@@ -198,10 +209,10 @@ def reocurring_dr(request, pk=None):
 
         for iterdate in date_list:
             if db.round_trip == True:
-                writer.writerow([name, phone, '', pickup_address, destination_address, iterdate + ' ' + pickup_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
-                writer.writerow([name, phone, '', destination_address, pickup_address, iterdate + ' ' + return_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
+                writer.writerow([fname + ' ' + lname, phone, '', pickup_address, destination_address, iterdate + ' ' + pickup_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
+                writer.writerow([fname + ' ' + lname, phone, '', destination_address, pickup_address, iterdate + ' ' + return_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
             else:
-                writer.writerow([name, phone, '', pickup_address, destination_address, iterdate + ' ' + pickup_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
+                writer.writerow([fname + ' ' + lname, phone, '', pickup_address, destination_address, iterdate + ' ' + pickup_time, '', account_number, service_type, num_pass, '', call_number,'','','' ])
         return response
 
     else:

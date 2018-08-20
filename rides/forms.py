@@ -6,12 +6,13 @@ class CreateBooking(forms.ModelForm):
 
     class Meta:
         model = models.FormBasic
-        fields = ['account_number','call_number','service_type','patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','appointment_date', 'pickup_time','return_time', 'pickup_address', 'destination_address','round_trip',]
+        fields = ['account_number','call_number','service_type','patient_first_name','patient_last_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','appointment_date', 'pickup_time','return_time', 'pickup_address', 'destination_address','round_trip',]
         widgets = {
         'account_number' : forms.TextInput(attrs={'class' : 'form-control'}),
         'call_number'  : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP only'}),
         'service_type'  : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP only'}),
-        'patient_name' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'patient_first_name' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'patient_last_name' : forms.TextInput(attrs={'class' : 'form-control'}),
         'patient_phone' : forms.TextInput(attrs={'class' : 'form-control'}),
         'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'This field SCFHP only'}),
         'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'This field SCFHP only'}),
@@ -36,13 +37,14 @@ class ReocurringBooking(forms.ModelForm):
 
     class Meta:
         model = models.Reocurring
-        fields = ['account_number','call_number','service_type','patient_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','pickup_address','destination_address','pickup_time','return_time','start_date','end_date','weekdays','round_trip']
+        fields = ['account_number','call_number','service_type','patient_first_name', 'patient_last_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','pickup_address','destination_address','pickup_time','return_time','start_date','end_date','weekdays','round_trip']
 
         widgets = {
         'account_number' : forms.TextInput(attrs={'class' : 'form-control'}),
         'call_number' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'SCFHP only'}),
         'service_type' : forms.TextInput(attrs={'class' : 'form-control'}),
-        'patient_name' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'patient_first_name' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'patient_last_name' : forms.TextInput(attrs={'class' : 'form-control'}),
         'patient_phone' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'SCFHP  only'}),
         'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control'}),
         'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control'}),

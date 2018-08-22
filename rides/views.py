@@ -9,6 +9,8 @@ from django.contrib import messages
 from .custom_modules import oa_headers
 import datetime
 import csv
+import googlemaps
+import math
 
 # Create your views here.
 
@@ -107,6 +109,9 @@ def one_off_oa(request, pk=None):
         fname = db.patient_first_name
         lname = db.patient_last_name
         phone = db.patient_phone
+        male_sex = ''
+        female_sex = ''
+        patient_birthdate = db.patient_birthdate
         start_address = db.pickup_address
         end_address = db.destination_address
         pickup_time = db.pickup_time
@@ -118,18 +123,34 @@ def one_off_oa(request, pk=None):
         dispatcher_notes = db.call_number
         patientMN = db.patient_med_number
         SCFHP_ID = '24077'
+        current_date = db.time_stamp.date
+        if db.gender == 'Male':
+            male_sex = 'X'
+        else:
+            female_sex = 'X'
+
+        # Google Maps API Distance Matrix : Solve Miles
+        gmaps = googlemaps.Client(key='AIzaSyDoDkPiC9_J8DXevCGej4NPX32uB9ThjYU')
+        my_distance = gmaps.distance_matrix(start_address, end_address)['rows'][0]['elements'][0]
+        miles = my_distance['distance']['text'].replace('km','')
+        miles = math.ceil(float(miles))
+        price_policy = (3 * miles + 25) # CHARGES $25 per pickup, $3 per mile
+        charges = price_policy
+        units = miles
 
         # Create CSV
         response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="dashride-upload.csv"'
+        response['Content-Disposition'] = 'attachment; filename="office-ally-upload.csv"'
 
         writer = csv.writer(response)
         writer.writerow([oa_headers.oa_heads()])
         # Write DB data to TSV
-        writer.writerow(['','Santa Clara Family Health Plan', SCFHP_ID,'','','','','','','','X','','','','','',patientMN ,''
-        ,])
+        writer.writerow(['','Santa Clara Family Health Plan', SCFHP_ID,'','','','','','','','X','','','','','',patientMN ,
+        lname, fname,'', patient_birthdate, male_sex, female_sex, lname, fname, '', start_address, '','','', phone,'self',
+        '','','', start_address,'','','', phone,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
+        '','X','SIGNATURE ON FILE', current_date,'SIGNATURE ON FILE', current_date,'','','','','','','','','','','','','','','G8220',
+        '','','','','','','','','','','','','','','', current_date,current_date,'99','','A0130','','','','','1', charges, units)
         return response
-
 
     else:
         print('Something went wrong')

@@ -7,8 +7,11 @@ from multiselectfield import MultiSelectField
 # Create your models here.
 
 class FormBasic(models.Model):
+    GENDER_CHOICES = (('Male','Male'),('Female','Female'))
+
     patient_first_name = models.CharField(max_length=50,default='')
     patient_last_name = models.CharField(max_length=50,default='')
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,default='')
     patient_phone = models.CharField(max_length=10)
     patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30)
@@ -30,16 +33,18 @@ class FormBasic(models.Model):
 
 class Reocurring(models.Model):
     DAY_CHOICES = (('Mon','Mon'),('Tue','Tue'),('Wed','Wed'),('Thur','Thur'),('Fri','Fri'),('Sat','Sat'),('Sun','Sun'))
+    GENDER_CHOICES = (('Male', 'Male'),('Female', 'Female'))
 
     account_number = models.CharField(max_length=15,default='')
     call_number = models.CharField(max_length=15,default='')
     service_type = models.CharField(max_length=15,default='')
     patient_first_name = models.CharField(max_length=30,default='')
     patient_last_name = models.CharField(max_length=30,default='')
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,default='')
     patient_phone = models.CharField(max_length=10)
     patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30)
-    number_of_passengers = models.CharField(max_length=1)
+    number_of_passengers = models.CharField(max_length=1, default='1')
 
     pickup_address = models.CharField(max_length=200, null=True, blank=True)
     destination_address = models.CharField(max_length=200, null=True, blank=True)

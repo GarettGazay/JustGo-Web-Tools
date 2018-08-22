@@ -14,7 +14,7 @@ class CreateBooking(forms.ModelForm):
         'patient_first_name' : forms.TextInput(attrs={'class' : 'form-control'}),
         'patient_last_name' : forms.TextInput(attrs={'class' : 'form-control'}),
         'patient_phone' : forms.TextInput(attrs={'class' : 'form-control'}),
-        'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'This field SCFHP only'}),
+        'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'MMDDYYYY'}),
         'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'This field SCFHP only'}),
         'number_of_passengers' : forms.NumberInput(attrs={'class' : 'form-control'}),
         'appointment_date' : forms.TextInput(attrs={'class' : 'form-control'}),
@@ -28,6 +28,8 @@ class CreateBooking(forms.ModelForm):
 
 class ReocurringBooking(forms.ModelForm):
     DAY_CHOICES = (('Mon','Mon'),('Tue','Tue'),('Wed','Wed'),('Thur','Thur'),('Fri','Fri'),('Sat','Sat'),('Sun','Sun'))
+    GENDER_CHOICES = (('Male', 'Male'),('Female', 'Female'))
+
 
     weekdays = forms.MultipleChoiceField(
         required=False,
@@ -35,9 +37,11 @@ class ReocurringBooking(forms.ModelForm):
         choices=DAY_CHOICES,
     )
 
+    gender = forms.ChoiceField(required=True,choices=GENDER_CHOICES)
+
     class Meta:
         model = models.Reocurring
-        fields = ['account_number','call_number','service_type','patient_first_name', 'patient_last_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','pickup_address','destination_address','pickup_time','return_time','start_date','end_date','weekdays','round_trip']
+        fields = ['account_number','call_number','service_type','patient_first_name', 'patient_last_name','gender', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','pickup_address','destination_address','pickup_time','return_time','start_date','end_date','weekdays','round_trip',]
 
         widgets = {
         'account_number' : forms.TextInput(attrs={'class' : 'form-control'}),
@@ -45,8 +49,10 @@ class ReocurringBooking(forms.ModelForm):
         'service_type' : forms.TextInput(attrs={'class' : 'form-control'}),
         'patient_first_name' : forms.TextInput(attrs={'class' : 'form-control'}),
         'patient_last_name' : forms.TextInput(attrs={'class' : 'form-control'}),
+
+
         'patient_phone' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'SCFHP  only'}),
-        'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control'}),
+        'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control','placeholder' : 'MMDDYYYY'}),
         'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control'}),
         'number_of_passengers' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Number of Passengers - Use digits'}),
 
@@ -57,5 +63,6 @@ class ReocurringBooking(forms.ModelForm):
         'start_date' : forms.TextInput(attrs={'class' : 'form-control'}),
         'end_date' : forms.TextInput(attrs={'class' : 'form-control'}),
         'round_trip' : forms.CheckboxInput(attrs={'style' : 'margin: 0 auto; width: 30px; height: 30px;'}),
+        'is_the_patient_male' : forms.CheckboxInput(attrs={'style' : 'margin: 0 auto; width: 30px; height: 30px;'}),
 
 }

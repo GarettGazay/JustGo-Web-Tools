@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'jquery',
     'django_extensions',
     'multiselectfield',
+    # 'googlemaps',
 
 
 

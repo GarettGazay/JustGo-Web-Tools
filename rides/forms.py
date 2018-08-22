@@ -3,10 +3,11 @@ from . import models
 from django.http import HttpResponse
 
 class CreateBooking(forms.ModelForm):
+    GENDER_CHOICES = (('Male', 'Male'),('Female', 'Female'))
 
     class Meta:
         model = models.FormBasic
-        fields = ['account_number','call_number','service_type','patient_first_name','patient_last_name', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','appointment_date', 'pickup_time','return_time', 'pickup_address', 'destination_address','round_trip',]
+        fields = ['account_number','call_number','service_type','patient_first_name','patient_last_name','gender', 'patient_phone','patient_birthdate','patient_med_number','number_of_passengers','appointment_date', 'pickup_time','return_time', 'pickup_address', 'destination_address','round_trip',]
         widgets = {
         'account_number' : forms.TextInput(attrs={'class' : 'form-control'}),
         'call_number'  : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP only'}),
@@ -63,6 +64,5 @@ class ReocurringBooking(forms.ModelForm):
         'start_date' : forms.TextInput(attrs={'class' : 'form-control'}),
         'end_date' : forms.TextInput(attrs={'class' : 'form-control'}),
         'round_trip' : forms.CheckboxInput(attrs={'style' : 'margin: 0 auto; width: 30px; height: 30px;'}),
-        'is_the_patient_male' : forms.CheckboxInput(attrs={'style' : 'margin: 0 auto; width: 30px; height: 30px;'}),
 
 }

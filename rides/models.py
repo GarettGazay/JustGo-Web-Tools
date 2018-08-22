@@ -11,7 +11,7 @@ class FormBasic(models.Model):
 
     patient_first_name = models.CharField(max_length=50,default='')
     patient_last_name = models.CharField(max_length=50,default='')
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,default='')
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES,default='Male')
     patient_phone = models.CharField(max_length=10)
     patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30)
@@ -40,7 +40,7 @@ class Reocurring(models.Model):
     service_type = models.CharField(max_length=15,default='')
     patient_first_name = models.CharField(max_length=30,default='')
     patient_last_name = models.CharField(max_length=30,default='')
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES,default='')
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES,default='Male')
     patient_phone = models.CharField(max_length=10)
     patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30)

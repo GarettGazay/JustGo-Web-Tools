@@ -105,6 +105,7 @@ def one_off_dr(request, pk=None):
 def one_off_oa(request, pk=None):
     if pk:
         print('returned primary key: ', pk)
+        print('ONE OFF OA TRIGGERED')
         db = FormBasic.objects.get(pk=pk)
         fname = db.patient_first_name
         lname = db.patient_last_name
@@ -124,6 +125,10 @@ def one_off_oa(request, pk=None):
         patientMN = db.patient_med_number
         SCFHP_ID = '24077'
         current_date = db.time_stamp.date
+        npi_number = '1699146175'
+        fed_tax_ssn = ''
+        vendor_signature = 'Thom Gazay'
+
         if db.gender == 'Male':
             male_sex = 'X'
         else:
@@ -131,31 +136,37 @@ def one_off_oa(request, pk=None):
 
         # Google Maps API Distance Matrix : Solve Miles
         gmaps = googlemaps.Client(key='AIzaSyDoDkPiC9_J8DXevCGej4NPX32uB9ThjYU')
-        my_distance = gmaps.distance_matrix(start_address, end_address)['rows'][0]['elements'][0]
-        miles = my_distance['distance']['text'].replace('km','')
+        my_distance = gmaps.distance_matrix(start_address, end_address,units='imperial')['rows'][0]['elements'][0]
+        miles = my_distance['distance']['text'].replace('mi','')
         miles = math.ceil(float(miles))
         price_policy = (3 * miles + 25) # CHARGES $25 per pickup, $3 per mile
         charges = price_policy
         units = miles
+        print('Miles: ', miles)
 
         # Create CSV
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="office-ally-upload.csv"'
 
-        writer = csv.writer(response)
+        writer = csv.writer(response,delimiter='\t')
         writer.writerow([oa_headers.oa_heads()])
         # Write DB data to TSV
         writer.writerow(['','Santa Clara Family Health Plan', SCFHP_ID,'','','','','','','','X','','','','','',patientMN ,
         lname, fname,'', patient_birthdate, male_sex, female_sex, lname, fname, '', start_address, '','','', phone,'self',
         '','','', start_address,'','','', phone,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
         '','X','SIGNATURE ON FILE', current_date,'SIGNATURE ON FILE', current_date,'','','','','','','','','','','','','','','G8220',
-        '','','','','','','','','','','','','','','', current_date,current_date,'99','','A0130','','','','','1', charges, units)
+        '','','','','','','','','','','','','','','', current_date,current_date,'99','','A0130','','','','','1', charges, units,'','NPI',
+        npi_number,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''
+        ,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','', fed_tax_ssn,'X'
+        '','X','', charges, '', charges, vendor_signature,current_date,'Gazay','Thom','','','','','','','','','','','JustGo Brokerage Inc',
+        '545 W Hacienda Ave Suite 101', 'Campbell','CA','95008','Campbell CA 95008','4083181573', npi_number,''])
         return response
 
     else:
         print('Something went wrong')
         one_off = FormBasic.objects.all().order_by('-time_stamp')
         reocurring = Reocurring.objects.all().order_by('-time_stamp')
+        print('Problem with OA view code somewhere')
         return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})
 
 @login_required(login_url='/accounts/login')

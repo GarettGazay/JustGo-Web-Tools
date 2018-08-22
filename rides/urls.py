@@ -11,6 +11,10 @@ urlpatterns = [
     path('download', views.download_page, name='download'),
     # url(r'^download/(?P<pk>\d+)$', views.download_page, name='download_with_pk'),
     url(r'^one_off_dr/(?P<pk>\d+)$', views.one_off_dr, name='one_off_dr'),
+    url(r'^one_off_oa/(?P<pk>\d+)$', views.one_off_oa, name='one_off_oa'),
     url(r'^reocurring_dr/(?P<pk>\d+)$', views.reocurring_dr, name='reocurring_dr'),
+    # url(r'^reocurring_oa/(?P<pk>\d+)$', views.reocurring_oa, name='reocurring_oa'),
+
+
 
 ]

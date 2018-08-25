@@ -6,7 +6,6 @@ from .models import FormBasic, Reocurring
 from datetime import date, timedelta, datetime
 from dateutil import relativedelta
 from django.contrib import messages
-from .custom_modules import oa_headers
 import datetime
 import csv
 import googlemaps
@@ -124,10 +123,11 @@ def one_off_oa(request, pk=None):
         dispatcher_notes = db.call_number
         patientMN = db.patient_med_number
         SCFHP_ID = '24077'
-        current_date = db.time_stamp.date
+        current_date = db.time_stamp.date()
         npi_number = '1699146175'
-        fed_tax_ssn = ''
+        fed_tax_ssn = 'TAX NUMBER'
         vendor_signature = 'Thom Gazay'
+        round_trip = db.round_trip
 
         if db.gender == 'Male':
             male_sex = 'X'
@@ -149,18 +149,35 @@ def one_off_oa(request, pk=None):
         response['Content-Disposition'] = 'attachment; filename="office-ally-upload.csv"'
 
         writer = csv.writer(response,delimiter='\t')
-        writer.writerow([oa_headers.oa_heads()])
-        # Write DB data to TSV
-        writer.writerow(['','Santa Clara Family Health Plan', SCFHP_ID,'','','','','','','','X','','','','','',patientMN ,
-        lname, fname,'', patient_birthdate, male_sex, female_sex, lname, fname, '', start_address, '','','', phone,'self',
-        '','','', start_address,'','','', phone,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
-        '','X','SIGNATURE ON FILE', current_date,'SIGNATURE ON FILE', current_date,'','','','','','','','','','','','','','','G8220',
-        '','','','','','','','','','','','','','','', current_date,current_date,'99','','A0130','','','','','1', charges, units,'','NPI',
-        npi_number,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''
-        ,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','', fed_tax_ssn,'X'
-        '','X','', charges, '', charges, vendor_signature,current_date,'Gazay','Thom','','','','','','','','','','','JustGo Brokerage Inc',
-        '545 W Hacienda Ave Suite 101', 'Campbell','CA','95008','Campbell CA 95008','4083181573', npi_number,''])
-        return response
+
+        if round_trip == False:
+            # Write DB data to TSV
+            writer.writerow(['','Santa Clara Family Health Plan', SCFHP_ID,'','','','','','','','X','','','','','',patientMN ,
+            lname, fname,'', patient_birthdate, male_sex, female_sex, lname, fname, '', start_address, '','','', phone,'self',
+            '','','', start_address,'','','', phone,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
+            '','X','SIGNATURE ON FILE', current_date,'SIGNATURE ON FILE', current_date,'','','','','','','','','','','','','','','G8220',
+            '','','','','','','','','','','','','','','', current_date,current_date,'99','','A0130','','','','','1', charges, units,'','NPI',
+            npi_number,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''
+            ,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','', fed_tax_ssn,'X'
+            '','X','', 'X', '', charges, charges, current_date, vendor_signature, current_date,'','','','','','','','','','','','','JustGo Brokerage Inc',
+            '545 W Hacienda Ave Suite 101', 'Campbell','CA','95008','Campbell CA 95008','4083181573', npi_number,''])
+            return response
+        else:
+            count = 0
+            while count < 2:
+                print(count)
+                # Write DB data to TSV
+                writer.writerow(['','Santa Clara Family Health Plan', SCFHP_ID,'','','','','','','','X','','','','','',patientMN ,
+                lname, fname,'', patient_birthdate, male_sex, female_sex, lname, fname, '', start_address, '','','', phone,'self',
+                '','','', start_address,'','','', phone,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','',
+                '','X','SIGNATURE ON FILE', current_date,'SIGNATURE ON FILE', current_date,'','','','','','','','','','','','','','','G8220',
+                '','','','','','','','','','','','','','','', current_date,current_date,'99','','A0130','','','','','1', charges, units,'','NPI',
+                npi_number,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''
+                ,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','', fed_tax_ssn,'X'
+                '','X','', 'X', '', charges, charges, current_date, vendor_signature, current_date,'','','','','','','','','','','','','JustGo Brokerage Inc',
+                '545 W Hacienda Ave Suite 101', 'Campbell','CA','95008','Campbell CA 95008','4083181573', npi_number,''])
+                count += 1
+            return response
 
     else:
         print('Something went wrong')

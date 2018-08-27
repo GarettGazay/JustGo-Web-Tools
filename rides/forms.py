@@ -4,8 +4,8 @@ from django.http import HttpResponse
 
 class CreateBooking(forms.ModelForm):
     GENDER_CHOICES = (('Male', 'Male'),('Female', 'Female'))
-    SERVICE_TYPES = (('SCFHP Basic','SCFHP Basic'),('VMC Service','VMC Service'))
-    ACCOUNT_NUMBERS = (('SC00001','SC00001'),('I do not have one','I do not have one'))
+    SERVICE_TYPES = (('SCFHP Basic','SCFHP Basic'),('VMC Wheelchair','VMC Wheelchair'),('VMC Ambulatory','VMC Ambulatory'),('VMC Discharge','VMC Discharge'))
+    ACCOUNT_NUMBERS = (('SC00001','SC00001'),('Fatima001','Fatima001'),('OLISCC','OLISCC'),('KINSCC','KINSCC'),('VICSCC','VICSCC'),('MCDSCC','MCDSCC'))
 
     account_number = forms.ChoiceField(required=True,choices=ACCOUNT_NUMBERS)
     service_type = forms.ChoiceField(required=True,choices=SERVICE_TYPES)
@@ -14,12 +14,12 @@ class CreateBooking(forms.ModelForm):
         model = models.FormBasic
         fields = ['account_number','service_type','call_number','patient_med_number','patient_first_name','patient_last_name','gender', 'patient_phone','patient_birthdate','number_of_passengers','appointment_date', 'pickup_time','return_time', 'pickup_address', 'destination_address','round_trip',]
         widgets = {
-        'call_number'  : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP only'}),
+        'call_number'  : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP Only'}),
         'patient_first_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Patient First Name'}),
         'patient_last_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Patient Last Name'}),
-        'patient_phone' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : '10-Digit - Digits Only'}),
+        'patient_phone' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': '10-Digit - Digits Only'}),
         'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control', 'placeholder' : 'MMDDYYYY'}),
-        'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'This field SCFHP only'}),
+        'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP Only'}),
         'number_of_passengers' : forms.NumberInput(attrs={'class' : 'form-control'}),
         'appointment_date' : forms.TextInput(attrs={'class' : 'form-control'}),
         'pickup_time' : forms.TextInput(attrs={'class' : 'form-control'}),
@@ -33,8 +33,8 @@ class CreateBooking(forms.ModelForm):
 class ReocurringBooking(forms.ModelForm):
     DAY_CHOICES = (('Mon','Mon'),('Tue','Tue'),('Wed','Wed'),('Thur','Thur'),('Fri','Fri'),('Sat','Sat'),('Sun','Sun'))
     GENDER_CHOICES = (('Male', 'Male'),('Female', 'Female'))
-    SERVICE_TYPES = (('SCFHP Basic','SCFHP Basic'),('VMC Basic','VMC Basic'))
-    ACCOUNT_NUMBERS = (('SC00001','SC00001'),('I do not have one','I do not have one'))
+    SERVICE_TYPES = (('SCFHP Basic','SCFHP Basic'),('VMC Wheelchair','VMC Wheelchair'),('VMC Ambulatory','VMC Ambulatory'),('VMC Discharge','VMC Discharge'))
+    ACCOUNT_NUMBERS = (('SC00001','SC00001'),('Fatima001','Fatima001'),('OLISCC','OLISCC'),('KINSCC','KINSCC'),('VICSCC','VICSCC'),('MCDSCC','MCDSCC'))
 
     weekdays = forms.MultipleChoiceField(
         required=False,
@@ -54,7 +54,7 @@ class ReocurringBooking(forms.ModelForm):
         'patient_last_name' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Patient Last Name'}),
         'patient_phone' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : '10-Digit - Digits Only'}),
         'patient_birthdate' : forms.DateInput(attrs={'class' : 'form-control','placeholder' : 'MMDDYYYY'}),
-        'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control'}),
+        'patient_med_number' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'SCFHP Only'}),
         'number_of_passengers' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Number of Passengers - Use digits'}),
         'pickup_address' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Example: 220 University Ave, Palo Alto, CA 94301'}),
         'destination_address' : forms.TextInput(attrs={'class' : 'form-control','placeholder' : 'Example: 220 University Ave, Palo Alto, CA 94301'}),

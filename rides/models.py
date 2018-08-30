@@ -3,12 +3,11 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from multiselectfield import MultiSelectField
 
-
 # Create your models here.
 
 class FormBasic(models.Model):
     GENDER_CHOICES = (('Male','Male'),('Female','Female'))
-    SERVICE_TYPES = (('SCFHP Basic','SCFHP Basic'),('VMC Wheelchair','VMC Wheelchair'),('VMC Ambulatory','VMC Ambulatory'),('VMC Discharge','VMC Discharge'))
+    SERVICE_TYPES = (('SCFHP Basic','SCFHP Basic'),('SCFHP Bariatric','SCFHP Bariatric'),('SCFHP Ambulatory','SCFHP Ambulatory'),('VMC Wheelchair','VMC Wheelchair'),('VMC Ambulatory','VMC Ambulatory'),('VMC Discharge','VMC Discharge'),('VMC Bariatric','VMC Bariatric'),('HERMAN Wheelchair','HERMAN Wheelchair'),('HERMAN Ambulatory','HERMAN Ambulatory'),('HERMAN Bariatric','HERMAN Bariatric'))
     ACCOUNT_NUMBERS = (('SC00001','SC00001'),('Fatima001','Fatima001'),('OLISCC','OLISCC'),('KINSCC','KINSCC'),('VICSCC','VICSCC'),('MCDSCC','MCDSCC'))
 
     patient_first_name = models.CharField(max_length=50,default='')
@@ -36,7 +35,7 @@ class FormBasic(models.Model):
 class Reocurring(models.Model):
     DAY_CHOICES = (('Mon','Mon'),('Tue','Tue'),('Wed','Wed'),('Thur','Thur'),('Fri','Fri'),('Sat','Sat'),('Sun','Sun'))
     GENDER_CHOICES = (('Male', 'Male'),('Female', 'Female'))
-    SERVICE_TYPES = (('SCFHP Basic','SCFHP Basic'),('VMC Wheelchair','VMC Wheelchair'),('VMC Ambulatory','VMC Ambulatory'),('VMC Discharge','VMC Discharge'))
+    SERVICE_TYPES = (('SCFHP Basic','SCFHP Basic'),('SCFHP Bariatric','SCFHP Bariatric'),('SCFHP Ambulatory','SCFHP Ambulatory'),('VMC Wheelchair','VMC Wheelchair'),('VMC Ambulatory','VMC Ambulatory'),('VMC Discharge','VMC Discharge'),('VMC Bariatric','VMC Bariatric'),('HERMAN Wheelchair','HERMAN Wheelchair'),('HERMAN Ambulatory','HERMAN Ambulatory'),('HERMAN Bariatric','HERMAN Bariatric'))
     ACCOUNT_NUMBERS = (('SC00001','SC00001'),('Fatima001','Fatima001'),('OLISCC','OLISCC'),('KINSCC','KINSCC'),('VICSCC','VICSCC'),('MCDSCC','MCDSCC'))
 
     account_number = models.CharField(max_length=30, choices=ACCOUNT_NUMBERS,default='')

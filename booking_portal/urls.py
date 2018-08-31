@@ -23,9 +23,10 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('rides/', include('rides.urls')),
     path('', account_views.login_view, name='home'),
+    path('', include('django.contrib.auth.urls')),
 
 
-] 
+]
 
 # Change admin site title
 admin.site.site_header = ("JustGoTools Admin")

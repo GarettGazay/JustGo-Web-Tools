@@ -16,6 +16,7 @@ class FormBasic(models.Model):
     patient_phone = models.CharField(max_length=10)
     patient_birthdate = models.CharField(max_length=8)
     patient_med_number = models.CharField(max_length=30, blank=True, null=True )
+    diagnostic_code = models.CharField(max_length=50,blank=True, null=True)
     number_of_passengers = models.PositiveIntegerField(default=1)
     appointment_date = models.CharField(max_length=15)
     round_trip = models.BooleanField(default=False)
@@ -48,7 +49,7 @@ class Reocurring(models.Model):
     patient_med_number = models.CharField(max_length=30 ,blank=True, null=True )
     number_of_passengers = models.PositiveIntegerField(default='1')
     service_type = models.CharField(max_length=15,choices=SERVICE_TYPES,default='')
-
+    diagnostic_code = models.CharField(max_length=50, blank=True, null=True)
     pickup_address = models.CharField(max_length=200 ,default='')
     destination_address = models.CharField(max_length=200,default='')
     pickup_time = models.CharField(max_length=12,default='')

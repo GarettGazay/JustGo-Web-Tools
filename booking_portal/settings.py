@@ -23,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9%h4b3+=@9=@95qgz!f^8&_4xy^%5e-2k0a-f3lxl79m9qt&n5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.justgotools.com']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -134,6 +136,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
 os.path.join(BASE_DIR, 'static'),
 )
+
+STATIC_ROOT = '/home/justgo/JustGo-Web-Tools/static'
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025

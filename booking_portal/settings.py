@@ -25,7 +25,6 @@ SECRET_KEY = '9%h4b3+=@9=@95qgz!f^8&_4xy^%5e-2k0a-f3lxl79m9qt&n5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['www.justgotools.com']
 ALLOWED_HOSTS = []
 
 
@@ -44,11 +43,6 @@ INSTALLED_APPS = [
     'jquery',
     'django_extensions',
     'multiselectfield',
-
-
-
-
-
 ]
 
 MIDDLEWARE = [

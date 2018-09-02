@@ -23,6 +23,7 @@ def book_view(request):
             instance = form.save(commit=False)
             instance.author= request.user
             instance.save()
+            messages.success(request, 'Form Submission Successful')
             return redirect('rides:book') # Make a congratulations app
         else:
             return redirect('rides:book')

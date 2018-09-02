@@ -1,5 +1,9 @@
 pip install django-extensions
 
-pip install import_export
+pip install django-import_export
 
 pip install django-multiselectfield
+
+pip install googlemaps
+
+pip install python-dateutil

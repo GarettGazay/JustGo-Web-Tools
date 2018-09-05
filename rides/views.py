@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from . import forms
 from .models import FormBasic, Reocurring
 from datetime import date, timedelta, datetime
@@ -52,7 +53,7 @@ def book_view_reocurring(request):
         form = forms.ReocurringBooking()
         return render(request, 'rides/reocurring.html',{'form': form, 'next_month' : next_month})
 
-@login_required(login_url='/accounts/login')
+@user_passes_test(lambda u: u.is_superuser)
 def download_page(request):
     one_off = FormBasic.objects.all().order_by('-time_stamp')
     reocurring = Reocurring.objects.all().order_by('-time_stamp')

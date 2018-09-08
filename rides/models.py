@@ -28,6 +28,7 @@ class FormBasic(models.Model):
     call_number = models.CharField(max_length=15,default='', blank=True, null=True )
     service_type = models.CharField(max_length=15,choices=SERVICE_TYPES,default='')
     time_stamp = models.DateTimeField(default=timezone.now)
+    downloaded = models.BooleanField(default=False)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
     def __str__(self):
@@ -58,9 +59,13 @@ class Reocurring(models.Model):
     end_date = models.CharField(max_length=50,default='')
     weekdays =  MultiSelectField(choices = DAY_CHOICES, default='')
     round_trip = models.BooleanField(default=False)
-
     time_stamp = models.DateTimeField(default=timezone.now)
+    downloaded = models.BooleanField(default=False)
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return str(self.author)
+
+
+# ride by default is False
+# if ride in downloads.html checkbox == true, green check icon in li + current user name + current time

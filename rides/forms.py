@@ -15,6 +15,8 @@ class CreateBooking(forms.ModelForm):
     account_number = forms.ChoiceField(required=True, choices=ACCOUNT_NUMBERS)
     service_type = forms.ChoiceField(required=True, choices=SERVICE_TYPES)
 
+
+
     class Meta:
         model = models.FormBasic
         fields = ['account_number', 'service_type', 'call_number', 'diagnostic_code', 'patient_med_number', 'patient_first_name', 'patient_last_name', 'gender', 'patient_phone',

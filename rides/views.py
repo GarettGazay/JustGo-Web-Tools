@@ -54,7 +54,7 @@ def book_view_reocurring(request):
         return render(request, 'rides/reocurring.html',{'form': form, 'next_month' : next_month})
 
 @user_passes_test(lambda u: u.is_superuser)
-def download_page(request):
+def download_page(request,pk=None):
     one_off = FormBasic.objects.all().order_by('-time_stamp')
     reocurring = Reocurring.objects.all().order_by('-time_stamp')
     return render(request, 'rides/download.html', {'one_off' : one_off, 'reocurring' : reocurring})
@@ -81,6 +81,12 @@ def one_off_dr(request, pk=None):
         dispatcher_notes = db.call_number
         driver_email = ''
 
+        # Make dl true if dashride button is clicked and user created
+        db.downloaded = True
+        # db.dl_user = str(request.user)
+        db.save()
+
+
         # Create CSV
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename="dashride-upload.csv"'
@@ -92,9 +98,11 @@ def one_off_dr(request, pk=None):
             writer.writerow([fname + ' ' + lname,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
             writer.writerow([fname + ' ' + lname,phone,'', end_address, start_address, return_time, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
             return response
+
         else:
             writer.writerow([fname + ' ' + lname,phone,'', start_address, end_address, pickup_date, return_date, account_id, service_type,passengers,driver_notes,dispatcher_notes,customer_notes,driver_name,driver_email])
             return response
+
 
     else:
         print('Something went wrong')
@@ -214,6 +222,11 @@ def reocurring_dr(request, pk=None):
         for i in db.weekdays:
             day_choices.append(i)
         date_list = []
+
+        # Make dl true if dashride button is clicked and user created
+        db.downloaded = True
+        # db.dl_user = str(request.user)
+        db.save()
 
         # Loop this dictionary with STRs from day_choices, if match, feed into date algorithm
         day_codes = {'Mon' : 0, 'Tue' : 1, 'Wed' : 2, 'Thur' : 3, 'Fri' : 4, 'Sat' : 5, 'Sun' : 6}

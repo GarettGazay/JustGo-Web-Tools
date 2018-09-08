@@ -83,6 +83,8 @@ def one_off_dr(request, pk=None):
 
         # Make dl true if dashride button is clicked and user created
         db.downloaded = True
+        db.dl_user = str(request.user)
+        db.dl_time = datetime.datetime.now().strftime('%m-%d-%Y | %I:%M%p')
         # db.dl_user = str(request.user)
         db.save()
 
@@ -225,6 +227,8 @@ def reocurring_dr(request, pk=None):
 
         # Make dl true if dashride button is clicked and user created
         db.downloaded = True
+        db.dl_user = str(request.user)
+        db.dl_time = datetime.datetime.now().strftime('%m-%d-%Y | %I:%M%p')
         # db.dl_user = str(request.user)
         db.save()
 

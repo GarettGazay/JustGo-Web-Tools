@@ -29,6 +29,8 @@ class FormBasic(models.Model):
     service_type = models.CharField(max_length=15,choices=SERVICE_TYPES,default='')
     time_stamp = models.DateTimeField(default=timezone.now)
     downloaded = models.BooleanField(default=False)
+    dl_user = models.CharField(max_length=200,default='')
+    dl_time = models.CharField(max_length=200,default='')
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
     def __str__(self):
@@ -61,6 +63,8 @@ class Reocurring(models.Model):
     round_trip = models.BooleanField(default=False)
     time_stamp = models.DateTimeField(default=timezone.now)
     downloaded = models.BooleanField(default=False)
+    dl_user = models.CharField(max_length=200,default='')
+    dl_time = models.CharField(max_length=200,default='')
     author = models.ForeignKey(User,  on_delete=models.CASCADE, default=None)
 
     def __str__(self):
